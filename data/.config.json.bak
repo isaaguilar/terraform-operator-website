@@ -1,0 +1,8 @@
+{
+    "title": "Stackbit Libris Theme",
+    "palette": "violet",
+    "header": {
+        "title": "Terraform Operator",
+        "logo_img": "images/logo.svg",
+        "logo_img_alt": "Libris logo",
+        "has_nav": true,
