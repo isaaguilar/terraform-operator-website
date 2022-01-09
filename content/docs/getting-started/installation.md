@@ -24,9 +24,7 @@ layout: docs
 ---
 
 <div class="note">
-Generally, the helm chart is kept up-to-date with the latest stable release of Terraform Operator. Which means, the helm-chart still uses a lower version of Terraform Operator by default.
-
-However, the documentation on this website is being constructed for version >= <code>v0.4.x</code>. Slight modifications to the templates may need to be made for the chart to work with >= <code>v0.4.0</code>.
+Generally, the helm chart is kept up-to-date with the latest stable release of Terraform Operator. However, the Terraform Operator <code>v0.5.0</code> release is not yet ready for installation with the current helm-chart release. Please use the <code>kubectl</code> install method instead.
 </div>
 
 
