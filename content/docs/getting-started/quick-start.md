@@ -29,21 +29,21 @@ Create your first Terraform resource using Terraform-operator
 
 Create a Terraform resource by running this _hello_world_ example:
 
+
+
 ```bash
 printf 'apiVersion: tf.isaaguilar.com/v1alpha1
 kind: Terraform
 metadata:
-  name: tf-operator-test
+  name: hello-tfo
 spec:
-
-  terraformVersion: 0.12.23
-  terraformModule:
-    address: https://github.com/cloudposse/terraform-aws-test-module.git
+  terraformModule: https://github.com/isaaguilar/simple-aws-tf-modules.git//create_file
 
   customBackend: |-
     terraform {
-      backend "local" {
-        path = "relative/path/to/terraform.tfstate"
+      backend "kubernetes" {
+        secret_suffix    = "hello-tfo"
+        in_cluster_config  = true
       }
     }
 
@@ -52,22 +52,27 @@ spec:
 ```
 
 <div class="note">
-  <strong>Note:</strong>
-  This is the demo content for demonstration purpose only. The primary function of this content is to show you how to get started with Terraform Operator, and using a local <strong>"local"</strong> type backend is strongly discouraged.
+  <code>backend "kubernetes"</code> is an available backend for Terraform v0.13+.
 </div>
 
 See the pods getting created:
 
 ```bash
-kubectl get po | grep tf-operator-test
+kubectl get po -w| grep hello-tfo
 ```
 
-<div class="note">
-Since the configured tf module just creates a random number, the workflow should complete in seconds.
-</div>
-
-Delete the resource:
+Finally, go ahead and delete the resource:
 
 ```bash
-kubectl delete tf tf-operator-test
+kubectl delete tf hello-tfo
+```
+
+The default behavior is to clean up the terraform resource. Watch the delete workflow being executed:
+
+<div class="note">
+  The delete will go by fast for this sample module, so the following command may not show any results. If that's the case, the terraform was already cleaned up.
+</div>
+
+```bash
+kubectl get po -w| grep hello-tfo
 ```
