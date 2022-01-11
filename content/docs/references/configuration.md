@@ -25,12 +25,13 @@ layout: docs
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).
 
-## TerraformSpec v1alpha1 tf.isaaguilar.com
+## TerraformSpec v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
 | `terraformModule`<br/>_string_ | A remote URL to fetch the Terraform module. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. As of writing this, only git/github options are supported. |
-| `terraformModuleConfigMap`<br/>_[ConfigMapSelector](#configmapselector-v1alpha1-tfisaaguilarcom)_ | Mount a ConfigMap as the Terraform module. |
+| `terraformModuleConfigMap`<br/>_[ConfigMapSelector](#configmapselector-v1alpha1-tf)_ | Mount a ConfigMap as the Terraform module. |
 | `terraformModuleInline`<br/>_string_ | Write the terraform module as a string. |
 | `terraformVersion`<br/>_string_ | the Terraform version to use for the module. Defaults to `1.1.3` |
 | `terraformRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Terraform Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
@@ -40,71 +41,164 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `runnerRules`<br/>_[PolicyRule](#policyrule-v1-rbacauthorizationk8sio)_ | RunnerRules are RBAC rules that will be added to all runner pods. |
 | `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map or annotations that will be added to all runner pods. |
 | `outputsSecret`<br/>_string_ | OutputsSecret will create a secret with the outputs from the terraform module. All outputs from the module will be written to the secret unless the user defines "outputsToInclude" or "outputsToOmit". |
-| `outputsToInclude`<br/>_string array_ | A whitelist of the terraform module's outputs to save to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tfisaaguilarcom) |
-| `outputsToOmit`<br/>_string array_ | A blacklist of the terraform module's outputs to omit when writing the to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tfisaaguilarcom) |
-| `writeOutputsToStatus`<br/>_boolean_ | |
-| `terraformVersion`<br/>_string_ | |
-| `scriptRunnerVersion`<br/>_string_ | |
-| `setupRunnerVersion`<br/>_string_ | |
-| `terraformRunner`<br/>_string_ | |
-| `scriptRunner`<br/>_string_ | |
-| `setupRunner`<br/>_string_ | |
-| `terraformRunnerPullPolicy`<br/>_string_ | |
-| `scriptRunnerPullPolicy`<br/>_string_ | |
-| `setupRunnerPullPolicy`<br/>_string_ | |
-| `resourceDownloads`<br/>_[ResourceDownload](#resourcedownload-v1alpha1-tfisaaguilarcom) array_ | |
-| `env`<br/>_[EnvVar](#envvar-v1-core) array_ | |
-| `serviceAccount`<br/>_string_ | |
-| `credentials`<br/>_[Credentials](#credentials-v1alpha1-tfisaaguilarcom) array_ | |
-| `ignoreDelete`<br/>_boolean_ | |
-| `customBackend`<br/>_string_ | |
-| `exportRepo`<br/>_[ExportRepo](#exportrepo-v1alpha1-tfisaaguilarcom)_ | |
-| `preInitScript`<br/>_string_ | |
-| `postInitScript`<br/>_string_ | |
-| `prePlanScript`<br/>_string_ | |
-| `postPlanScript`<br/>_string_ | |
-| `preApplyScript`<br/>_string_ | |
-| `postApplyScript`<br/>_string_ | |
-| `preInitDeleteScript`<br/>_string_ | |
-| `postInitDeleteScript`<br/>_string_ | |
-| `prePlanDeleteScript`<br/>_string_ | |
-| `postPlanDeleteScript`<br/>_string_ | |
-| `preApplyDeleteScript`<br/>_string_ | |
-| `postApplyDeleteScript`<br/>_string_ | |
-| `sshTunnel`<br/>_[ProxyOpts](#proxyopts-v1alpha1-tfisaaguilarcom)_ | |
-| `scmAuthMethods`<br/>_[SCMAuthMethod](#scmauthmethod-v1alpha1-tfisaaguilarcom) array_ | |
+| `outputsToInclude`<br/>_string array_ | A whitelist of the terraform module's outputs to save to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
+| `outputsToOmit`<br/>_string array_ | A blacklist of the terraform module's outputs to omit when writing the to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
+| `writeOutputsToStatus`<br/>_boolean_ | When `true` the terraform module's outputs get written to the [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
+| `scriptRunnerVersion`<br/>_string_ | The tag of the [Script Runner](#tbd) image. |
+| `setupRunnerVersion`<br/>_string_ | The tag of the [Setup Runner](#tbd) image. |
+| `terraformRunner`<br/>_string_ | The repo of the [Terraform Runner](#tbd) image. |
+| `scriptRunner`<br/>_string_ | The repo of the [Script Runner](#tbd) image. |
+| `setupRunner`<br/>_string_ | The repo of the [Setup Runner](#tbd) image. |
+| `terraformRunnerPullPolicy`<br/>_string_ | The `pullPolicy` for the [Terraform Runner](#tbd) pod. |
+| `scriptRunnerPullPolicy`<br/>_string_ | The `pullPolicy` for the [Script Runner](#tbd) pod. |
+| `setupRunnerPullPolicy`<br/>_string_ | The `pullPolicy` for the [Setup Runner](#tbd) pod. |
+| `resourceDownloads`<br/>_[ResourceDownload](#resourcedownload-v1alpha1-tf) array_ | ResourceDownloads defines other files to download into a path relative to the terraform module's directory.  The `tfvar` type is a special file that does not get added into the terraform module's directory. The `tfvar` type gets added to a special directory and gets utilized when making the "terraform plan". The `tfvar` special directory is also used by the [Export Repo](#tbd) feature. |
+| `env`<br/>_[EnvVar](#envvar-v1-core) array_ | Define environment variables used by all workflow runners. A common use case is the `TF_VAR_` prefixed variables that get consumed in the "terraform plan". `TF_VAR_` prefixed variables are also utilized by the [Export Repo](#tbd) feature. |
+| `serviceAccount`<br/>_string_ | Use a specific kubernetes ServiceAccount for workflow runner pods. If not specified, a new ServiceAccount is created per [generation](#tbd). |
+| `credentials`<br/>_[Credentials](#credentials-v1alpha1-tf) array_ | Credentials generally used for Terraform providers |
+| `ignoreDelete`<br/>_boolean_ | Bypass the finalization process in order to remove the Terraform resource from kubernetes without running any delete jobs. |
+| `customBackend`<br/>_string_ | Configure the terraform backend by writing an inline Terraform [Backend Configuration](https://www.terraform.io/language/settings/backends/configuration). If this field is omitted, a default consul backend configuration will be used, which will require a consul installation into the cluster. |
+| `exportRepo`<br/>_[ExportRepo](#exportrepo-v1alpha1-tf)_ | Consolidate and save the "tfvar"s to a single file, then export the file to a remote github repo. Specify the repo and the path and the [Export Runner](#tbd) will run after the setup phase. |
+| `preInitScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform init". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow.  |
+| `postInitScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform init". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `prePlanScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform plan". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `postPlanScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform plan". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `preApplyScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform apply". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `postApplyScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform apply". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `preInitDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform init". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `postInitDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform init". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `prePlanDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform plan -destroy". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `postPlanDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform plan -destroy". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `preApplyDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run before "terraform apply". "`pre*`" scripts run as [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) in a [Terraform Runner](#tbd) pod. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `postApplyDeleteScript`<br/>_string_ | A script, written as an inline yaml string, that will run after "terraform apply". "`post*`" scripts run as standalone pods in the workflow. All scripts get executed from within the root of the terraform module's directory. Therefore, files created, changed, or removed from this directory, or anywhere in the user's `$HOME` directory, will persist for the next stage in the workflow. |
+| `sshTunnel`<br/>_[ProxyOpts](#proxyopts-v1alpha1-tf)_ | SSHTunnel can be defined for pulling from scm sources that cannot be accessed by the network the operator/runner runs in. An example is trying to reach an Enterprise Github server running on a private network. |
+| `scmAuthMethods`<br/>_[SCMAuthMethod](#scmauthmethod-v1alpha1-tf) array_ | A SCMAuthMethod is used to select the kubernetes secrets that provide the passwords, tokens or ssh-keys required to access private servers and repos. The actual creation of the kubernetes secret is not handled by Terraform Operator. |
 
 
-## ResourceDownload v1alpha1 tf.isaaguilar.com
+## ResourceDownload v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
 | Field | Description |
 | --- | --- |
+| `address`<br/>_string_ | |
+| `path`<br/>_string_ | |
+| `useAsVar`<br/>_boolean_ | |
 
-## Credentials v1alpha1 tf.isaaguilar.com
+## Credentials v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
 | Field | Description |
 | --- | --- |
+| `secretNameRef`<br/>_[SecretNameRef](#secretnameref-v1alpha1-tf)_ | |
+| `awsCredentials`<br/>_[AWSCredentials](#awscredentials-v1alpha1-tf)_ | |
+| `serviceAccountAnnotations`<br/>_object_ | |
 
-## ExportRepo v1alpha1 tf.isaaguilar.com
+## ExportRepo v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
 | Field | Description |
 | --- | --- |
+| `address`<br/>_string_ | |
+| `tfvarsFile`<br/>_string_ | |
+| `confFile`<br/>_string_ | |
 
-## ProxyOpts v1alpha1 tf.isaaguilar.com
+## ProxyOpts v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
 | Field | Description |
 | --- | --- |
+| `host`<br/>_string_ | |
+| `user`<br/>_string_ | |
+| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | |
 
-## SCMAuthMethod v1alpha1 tf.isaaguilar.com
+## SCMAuthMethod v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
 | Field | Description |
 | --- | --- |
+| `host`<br/>_string_ | |
+| `git`<br/>_[GitSCM](#gitscm-v1alpha1-tf)_ | |
 
-## ConfigMapSelector v1alpha1 tf.isaaguilar.com
+## GitSCM v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `ssh`<br/>_[GitSSH](#gitssh-v1alpha1-tf)_ | |
+| `https`<br/>_[GitHTTPS](#githttps-v1alpha1-tf)_ | |
+
+## GitSSH v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `requireProxy`<br/>_boolean_ | |
+| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | |
+
+## GitHTTPS v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `requireProxy`<br/>_boolean_ | |
+| `tokenSecretRef`<br/>_[TokenSecretRef](#tokensecretref-v1alpha1-tf)_ | |
+
+## ConfigMapSelector v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
 | `name`<br/>_string_ | Name of a ConfigMap |
 | `key`<br/>_string_ | The key to select |
 
-## TerraformStatus v1alpha1 tf.isaaguilar.com
+## SecretNameRef v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `name`<br/>_string_ | |
+| `namespace`<br/>_string_ | |
+| `key`<br/>_string_ | |
+
+## SSHKeySecretRef v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `name`<br/>_string_ | |
+| `namespace`<br/>_string_ | |
+| `key`<br/>_string_ | |
+
+## TokenSecretRef v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `name`<br/>_string_ | |
+| `namespace`<br/>_string_ | |
+| `key`<br/>_string_ | |
+
+## AWSCredentials v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+| `irsa`<br/>_string_ | |
+| `kiam`<br/>_string_ | |
+
+## TerraformStatus v1alpha1 tf
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
+
+| Field | Description |
+| --- | --- |
+
+
+# Kubernetes APIs
+
+Some APIs used by Terraform Operator are adopted from Kubernetes itself. Below are the relevant APIs used by the Terraform CRD.
 
 ## EnvVar v1 core
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
@@ -113,6 +207,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 `valueFrom`<br/>_[EnvVarSource](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#envvarsource-v1-core)_ | Source for the environment variable's value. Cannot be used if value is not empty. |
 
 ## ConfigMapKeySelector v1 core
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
@@ -120,6 +215,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `key`<br/>_string_ | The key to select |
 
 ## PolicyRule v1 rbac.authorization.k8s.io
+<hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
