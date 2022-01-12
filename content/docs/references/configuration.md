@@ -30,7 +30,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 
 | Field | Description |
 | --- | --- |
-| `terraformModule`<br/>_string_ | A remote URL to fetch the Terraform module. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. As of writing this, only git/github options are supported. |
+| `terraformModule`<br/>_string_ | A remote URL to fetch the Terraform module. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
 | `terraformModuleConfigMap`<br/>_[ConfigMapSelector](#configmapselector-v1alpha1-tf)_ | Mount a ConfigMap as the Terraform module. |
 | `terraformModuleInline`<br/>_string_ | Write the terraform module as a string. |
 | `terraformVersion`<br/>_string_ | the Terraform version to use for the module. Defaults to `1.1.3` |
@@ -39,7 +39,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `setupRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Setup Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
 | `keepCompletedPods`<br/>_boolean_ | When `true` will keep completed pods. Default is `false` and completed pods are removed. |
 | `runnerRules`<br/>_[PolicyRule](#policyrule-v1-rbacauthorizationk8sio)_ | RunnerRules are RBAC rules that will be added to all runner pods. |
-| `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map or annotations that will be added to all runner pods. |
+| `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map of annotations that will be added to all runner pods. |
 | `outputsSecret`<br/>_string_ | OutputsSecret will create a secret with the outputs from the terraform module. All outputs from the module will be written to the secret unless the user defines "outputsToInclude" or "outputsToOmit". |
 | `outputsToInclude`<br/>_string array_ | A whitelist of the terraform module's outputs to save to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
 | `outputsToOmit`<br/>_string array_ | A blacklist of the terraform module's outputs to omit when writing the to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
@@ -80,68 +80,67 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 
 | Field | Description |
 | --- | --- |
-| `address`<br/>_string_ | |
-| `path`<br/>_string_ | |
-| `useAsVar`<br/>_boolean_ | |
+| `address`<br/>_string_ | Source url of resources to fetch. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
+| `useAsVar`<br/>_boolean_ | Add the downloaded resource file as a tfvar via the `-var-file` flag of the "terraform plan" command. The downloaded resource must not be a directory. |
 
 ## Credentials v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `secretNameRef`<br/>_[SecretNameRef](#secretnameref-v1alpha1-tf)_ | |
-| `awsCredentials`<br/>_[AWSCredentials](#awscredentials-v1alpha1-tf)_ | |
-| `serviceAccountAnnotations`<br/>_object_ | |
+| `secretNameRef`<br/>_[SecretNameRef](#secretnameref-v1alpha1-tf)_ | Load environment variables into the workflow runner pods from a kubernetes Secret. |
+| `awsCredentials`<br/>_[AWSCredentials](#awscredentials-v1alpha1-tf)_ | Methods to load AWS-specific credentials into the workflow runner pods. If using `AWS_ACCESS_KEY_ID` and/or environment variables for credentials, use the `secretNameRef` instead. For IRSA, using the `serviceAccountAnnotations` to add the expected `eks.amazonaws.com/role-arn` is effectively the same thing. |
+| `serviceAccountAnnotations`<br/>_object_ | ServiceAccountAnnotations is an unstructured key value map of annotations that is added to the kubernetes ServiceAccount that gets mounted by the workflow runner pods. Cloud IAM roles, such as Workload Identity on GCP and IRSA on AWS use this method of providing credentials to pods without haven't to manage secrets on the cluster. |
 
 ## ExportRepo v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `address`<br/>_string_ | |
-| `tfvarsFile`<br/>_string_ | |
-| `confFile`<br/>_string_ | |
+| `address`<br/>_string_ | Destination url of the repo to push `tfvar` and `config` files. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
+| `tfvarsFile`<br/>_string_ | The full path, including the directories and filename, relative to the root of the repo. The suffix of the file is not automatically added, so manually include the `.tfvars` file if desired. |
+| `confFile`<br/>_string_ | The full path, including the directories and filename, relative to the root of the repo. The suffix of the file is not automatically added, so manually include the `.conf` file if desired. |
 
 ## ProxyOpts v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `host`<br/>_string_ | |
-| `user`<br/>_string_ | |
-| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | |
+| `host`<br/>_string_ | The host name or ip-address of the ssh tunnel host. |
+| `user`<br/>_string_ | The username that can access the ssh tunnel host for the configured secret. |
+| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | Specifies the kubernetes Secret where a SSH key is stored. |
 
 ## SCMAuthMethod v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `host`<br/>_string_ | |
-| `git`<br/>_[GitSCM](#gitscm-v1alpha1-tf)_ | |
+| `host`<br/>_string_ | The host where private repos or servers are stored. |
+| `git`<br/>_[GitSCM](#gitscm-v1alpha1-tf)_ | Configuration options for auth methods of git. |
 
 ## GitSCM v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `ssh`<br/>_[GitSSH](#gitssh-v1alpha1-tf)_ | |
-| `https`<br/>_[GitHTTPS](#githttps-v1alpha1-tf)_ | |
+| `ssh`<br/>_[GitSSH](#gitssh-v1alpha1-tf)_ | SSH options for accessing git over ssh. |
+| `https`<br/>_[GitHTTPS](#githttps-v1alpha1-tf)_ | HTTPS options for access git over https. |
 
 ## GitSSH v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `requireProxy`<br/>_boolean_ | |
-| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | |
+| `requireProxy`<br/>_boolean_ | Specifies if the target host of the [SCMAuthMethod](#scmauthmethod-v1alpha1-tf) requires a proxy to access. If true, the configured [SSHTunnel](#proxyopts-v1alpha1-tf) is the proxy used. |
+| `sshKeySecretRef`<br/>_[SSHKeySecretRef](#sshkeysecretref-v1alpha1-tf)_ | Specifies the kubernetes Secret where a SSH key is stored. |
 
 ## GitHTTPS v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `requireProxy`<br/>_boolean_ | |
-| `tokenSecretRef`<br/>_[TokenSecretRef](#tokensecretref-v1alpha1-tf)_ | |
+| `requireProxy`<br/>_boolean_ | Specifies if the target host of the [SCMAuthMethod](#scmauthmethod-v1alpha1-tf) requires a proxy to access. If true, the configured [SSHTunnel](#proxyopts-v1alpha1-tf) is the proxy used. |
+| `tokenSecretRef`<br/>_[TokenSecretRef](#tokensecretref-v1alpha1-tf)_ | Specifies the kubernetes Secret where a token key is stored. |
 
 ## ConfigMapSelector v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
@@ -156,35 +155,35 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 
 | Field | Description |
 | --- | --- |
-| `name`<br/>_string_ | |
-| `namespace`<br/>_string_ | |
-| `key`<br/>_string_ | |
+| `name`<br/>_string_ | Name of a kubernetes Secret |
+| `namespace`<br/>_string_ | The namespace the secret is in. Omitting will select the same namespace as the resource |
+| `key`<br/>_string_ | The key to select |
 
 ## SSHKeySecretRef v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `name`<br/>_string_ | |
-| `namespace`<br/>_string_ | |
-| `key`<br/>_string_ | |
+| `name`<br/>_string_ | Name of a kubernetes Secret |
+| `namespace`<br/>_string_ | The namespace the secret is in. Omitting will select the same namespace as the resource |
+| `key`<br/>_string_ | The key to select |
 
 ## TokenSecretRef v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `name`<br/>_string_ | |
-| `namespace`<br/>_string_ | |
-| `key`<br/>_string_ | |
+| `name`<br/>_string_ | Name of a kubernetes Secret |
+| `namespace`<br/>_string_ | The namespace the secret is in. Omitting will select the same namespace as the resource |
+| `key`<br/>_string_ | The key to select |
 
 ## AWSCredentials v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
 
 | Field | Description |
 | --- | --- |
-| `irsa`<br/>_string_ | |
-| `kiam`<br/>_string_ | |
+| `irsa`<br/>_string_ | When defined will add the special IRSA annotation to the kubernetes ServiceAccount that get added to workflow runner pods. Using the [serviceAccountAnnotations](#credentials-v1alpha1-tf) to add the expected `eks.amazonaws.com/role-arn` is effectively the same thing.  |
+| `kiam`<br/>_string_ | When defined will add the special KIAM annotation to the workflow runner pods. Using `runnerAnnotations` to add the expected `iam.amazonaws.com/role` is effectively the same thing. |
 
 ## TerraformStatus v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>

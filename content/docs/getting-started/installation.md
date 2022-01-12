@@ -23,16 +23,18 @@ seo:
 layout: docs
 ---
 
-<div class="note">
+<!--<div class="note">
 Generally, the helm chart is kept up-to-date with the latest stable release of Terraform Operator. However, the Terraform Operator <code>v0.5.0</code> release is not yet ready for installation with the current helm-chart release. Please use the <code>kubectl</code> install method instead.
-</div>
+</div>-->
 
 
 ## Install using Helm
 
 ```bash
 helm repo add isaaguilar https://isaaguilar.github.io/helm-charts
-helm install terraform-operator isaaguilar/terraform-operator --namespace tf-system --create-namespace
+helm repo update
+helm upgrade --install terraform-operator isaaguilar/terraform-operator \
+  --version v0.2.0 --namespace tf-system --create-namespace
 ```
 
 <div class="note">
