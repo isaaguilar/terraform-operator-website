@@ -1,26 +1,29 @@
 ---
-title: Configuration
-weight: 1
+title: API Reference v0.6.0
+excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Configuration
+  title: API Reference v0.6.0
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'
       value: website
       keyName: property
     - name: 'og:title'
-      value: Configuration
+      value: References
       keyName: property
     - name: 'og:description'
-      value: This is the configuration page
+      value: This is the references page
       keyName: property
     - name: 'twitter:card'
       value: summary
     - name: 'twitter:title'
-      value: Configuration
+      value: References
     - name: 'twitter:description'
-      value: This is the configuration page
+      value: This is the references page
 layout: docs
+weight: 1
+aliases:
+- /docs/references/latest
 ---
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).
@@ -38,6 +41,8 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `scriptRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Script Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
 | `setupRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Setup Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
 | `keepCompletedPods`<br/>_boolean_ | When `true` will keep completed pods. Default is `false` and completed pods are removed. |
+| `cleanupDisk` <br/> _boolean_ | CleanupDisk will clear out previous terraform run data from the persistent volume. |
+| `persistentVolumeSize` <br/> _string_ | Define the size of the disk used to store terraform run data. If not defined, a default of "2Gi" is used. |
 | `runnerRules`<br/>_[PolicyRule](#policyrule-v1-rbacauthorizationk8sio)_ | RunnerRules are RBAC rules that will be added to all runner pods. |
 | `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map of annotations that will be added to all runner pods. |
 | `outputsSecret`<br/>_string_ | OutputsSecret will create a secret with the outputs from the terraform module. All outputs from the module will be written to the secret unless the user defines "outputsToInclude" or "outputsToOmit". |
@@ -100,6 +105,9 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `address`<br/>_string_ | Destination url of the repo to push `tfvar` and `config` files. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
 | `tfvarsFile`<br/>_string_ | The full path, including the directories and filename, relative to the root of the repo. The suffix of the file is not automatically added, so manually include the `.tfvars` file if desired. |
 | `confFile`<br/>_string_ | The full path, including the directories and filename, relative to the root of the repo. The suffix of the file is not automatically added, so manually include the `.conf` file if desired. |
+| `retryOnFailure` <br/> _boolean_ | Sets the export pod's restartPolicy to "OnFailure" |
+| `gitUsername` <br/> _string_ | The name of the user who pushes to git. This name is typically an automation user and probably the user whose token or sshkey is configured in [SCMAuthMethod](#scmauthmethod-v1alpha1-tf) |
+| `gitEmail` <br/> _string_ | The email of the user who pushes to git. This email is typically an automation user and probably the user whose token or sshkey is configured in [SCMAuthMethod](#scmauthmethod-v1alpha1-tf) |
 
 ## ProxyOpts v1alpha1 tf
 <hr style="border-top: 4px solid #8c8b8b;margin-top: 0px;"/>
@@ -224,3 +232,8 @@ Some APIs used by Terraform Operator are adopted from Kubernetes itself. Below a
 | `resources`<br/>_string array_ | Resources is a list of resources this rule applies to. ResourceAll represents all resources.
 | `verbs`<br/>_string array_ | Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. VerbAll represents all kinds. |
 
+
+
+***
+
+Other articles in this section:

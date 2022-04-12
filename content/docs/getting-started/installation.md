@@ -34,7 +34,7 @@ Generally, the helm chart is kept up-to-date with the latest stable release of T
 helm repo add isaaguilar https://isaaguilar.github.io/helm-charts
 helm repo update
 helm upgrade --install terraform-operator isaaguilar/terraform-operator \
-  --version v0.2.2 --namespace tf-system --create-namespace
+  --version v0.2.3 --namespace tf-system --create-namespace
 ```
 
 <div class="note">
@@ -57,4 +57,4 @@ kubectl apply -f deploy --namespace tf-system
 
 Once the operator is installed, terraform resources are ready to be deployed.
 
-Check out the [examples](examples) directory to see the different options tf-operator handles. See [complete-examples](../examples/complete-examples) for realistic examples.
+Check out the [examples](https://github.com/isaaguilar/terraform-operator/tree/master/examples) directory to see the different options tf-operator handles. For a full list of options, see [API References](/docs/references/latest)

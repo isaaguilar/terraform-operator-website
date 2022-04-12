@@ -20,7 +20,9 @@
             {{ if $has_children }}
               <ul id="docs-section-items" class="docs-section-items">
                 {{ range $child_page := $child_pages }}
+                {{ if ne .Params.hidden true }}
                 <li class="docs-section-item"><a href="{{ $child_page.URL }}" class="docs-item-link">{{ $child_page.Title }}<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                {{ end }}
                 {{ end }}
               </ul><!-- .docs-section-pages -->
             {{ end }}
