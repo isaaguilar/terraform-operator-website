@@ -21,9 +21,7 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1
-aliases:
-- /docs/references/latest
+weight: 101
 ---
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).
