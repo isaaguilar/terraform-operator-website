@@ -44,7 +44,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `cleanupDisk` <br/> _boolean_ | CleanupDisk will clear out previous terraform run data from the persistent volume. |
 | `persistentVolumeSize` <br/> _string_ | Define the size of the disk used to store terraform run data. If not defined, a default of "2Gi" is used. |
 | `runnerRules`<br/>_[PolicyRule](#policyrule-v1-rbacauthorizationk8sio)_ | RunnerRules are RBAC rules that will be added to all runner pods. |
-| `runnerLabels`<br/>_object_ | RunnerRules is an unstructured key value map of labels that will be added to all runner pods. |
+| `runnerLabels`<br/>_object_ | RunnerLabels is an unstructured key value map of labels that will be added to all runner pods. |
 | `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map of annotations that will be added to all runner pods. |
 | `outputsSecret`<br/>_string_ | OutputsSecret will create a secret with the outputs from the terraform module. All outputs from the module will be written to the secret unless the user defines "outputsToInclude" or "outputsToOmit". |
 | `outputsToInclude`<br/>_string array_ | A whitelist of the terraform module's outputs to save to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
