@@ -87,6 +87,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | Field | Description |
 | --- | --- |
 | `address`<br/>_string_ | Source url of resources to fetch. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
+| `path`<br/>_string_ | When defined, the downloaded resource(s) will be added to this path relative to the main module directory. |
 | `useAsVar`<br/>_boolean_ | Add the downloaded resource file as a tfvar via the `-var-file` flag of the "terraform plan" command. The downloaded resource must not be a directory. |
 
 ## Credentials v1alpha1 tf
