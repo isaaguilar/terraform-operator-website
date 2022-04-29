@@ -14,3 +14,19 @@
     opacity: 0.2;
   }
 }
+@-webkit-keyframes fadeIn60 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes fadeIn60 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

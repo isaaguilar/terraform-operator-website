@@ -25,6 +25,21 @@
                 {{ end }}
                 {{ end }}
               </ul><!-- .docs-section-pages -->
+              <div>
+                {{ $header_displayed := false }}
+                {{ range $child_page := $child_pages }}
+                {{ if and (eq .Params.hidden true) (eq $header_displayed false) }}
+                  Archived:
+                  {{ $header_displayed = true}}
+                {{ end }}
+                {{ end}}
+
+                {{ range $child_page := $child_pages }}
+                {{ if eq .Params.hidden true }}
+                <div class="docs-section-item"><a href="{{ $child_page.URL }}" class="docs-item-link">{{ $child_page.Title }}<span class="icon-angle-right" aria-hidden="true"></span></a></div>
+                {{ end }}
+                {{ end }}
+              </div>
             {{ end }}
           {{ end }}
         </div><!-- .post-content -->

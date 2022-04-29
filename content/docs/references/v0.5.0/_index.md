@@ -21,7 +21,7 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-hidden: false
+hidden: true
 weight: 102
 ---
 

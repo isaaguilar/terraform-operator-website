@@ -120,6 +120,19 @@
   top: 0;
 }
 
+.blog-bg-img {
+  -webkit-animation: fadeIn60 .75s ease-in-out;
+  animation: fadeIn60 .75s ease-in-out;
+  background-position: center;
+  background-size: cover;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 // Grid
 .grid {
   display: -ms-flexbox;

@@ -1,7 +1,7 @@
 ---
 title: Blog
 subtitle: Posts/Guides to demonstrate using Terraform Operator.
-image: images/5.jpg
+image: http://tf.isaaguilar.com/media/header.png
 has_more_link: true
 more_link_text: Read more
 seo:

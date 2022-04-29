@@ -1,8 +1,8 @@
 ---
-title: API Reference v0.6.0
+title: API Reference v0.8.0
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: API Reference v0.6.0
+  title: API Reference v0.8.0
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'
@@ -21,8 +21,9 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-hidden: true
-weight: 101
+weight: 100
+aliases:
+- /docs/references/latest
 ---
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).
@@ -39,10 +40,12 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | `terraformRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Terraform Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
 | `scriptRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Script Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
 | `setupRunnerExecutionScriptConfigMap`<br/>_[ConfigMapKeySelector](#configmapkeyselector-v1-core)_ | Allows the user to define a custom script for the [Setup Runner](#tbd) pod. The custom-script replaces the default script executed by the image. |
+| `keepLatestPodsOnly`<br/>_boolean_ | When `true` will keep only the pods that match the current generation of the terraform k8s-resource. This overrides the behavior of `keepCompletedPods`. |
 | `keepCompletedPods`<br/>_boolean_ | When `true` will keep completed pods. Default is `false` and completed pods are removed. |
 | `cleanupDisk` <br/> _boolean_ | CleanupDisk will clear out previous terraform run data from the persistent volume. |
 | `persistentVolumeSize` <br/> _string_ | Define the size of the disk used to store terraform run data. If not defined, a default of "2Gi" is used. |
 | `runnerRules`<br/>_[PolicyRule](#policyrule-v1-rbacauthorizationk8sio)_ | RunnerRules are RBAC rules that will be added to all runner pods. |
+| `runnerLabels`<br/>_object_ | RunnerLabels is an unstructured key value map of labels that will be added to all runner pods. |
 | `runnerAnnotations`<br/>_object_ |  RunnerAnnotations is an unstructured key value map of annotations that will be added to all runner pods. |
 | `outputsSecret`<br/>_string_ | OutputsSecret will create a secret with the outputs from the terraform module. All outputs from the module will be written to the secret unless the user defines "outputsToInclude" or "outputsToOmit". |
 | `outputsToInclude`<br/>_string array_ | A whitelist of the terraform module's outputs to save to the `OutputsSecret` or [`TerraformStatus`](#terraformstatus-v1alpha1-tf) |
@@ -85,6 +88,7 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 | Field | Description |
 | --- | --- |
 | `address`<br/>_string_ | Source url of resources to fetch. The URL uses a variation of Terraform's "[Module Source](https://www.terraform.io/language/modules/sources#module-sources)" URL-like syntax. This value will be parsed into all the components of an address, like `host`, `port`, `path`, `scheme`, etc. See [ParsedAddress](#tbd) for a detailed explanation the parser. |
+| `path`<br/>_string_ | When defined, the downloaded resource(s) will be added to this path relative to the main module directory. |
 | `useAsVar`<br/>_boolean_ | Add the downloaded resource file as a tfvar via the `-var-file` flag of the "terraform plan" command. The downloaded resource must not be a directory. |
 
 ## Credentials v1alpha1 tf
