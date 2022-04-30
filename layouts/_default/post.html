@@ -19,6 +19,15 @@
     </header>
     <div class="inner-md outer">
       <div class="post-content">
+        <p>
+          <!-- {{ if .Params.date }}
+          <span style="font-weight: 600;">Date:</span> <span>{{ .Params.date | dateFormat "January 02, 2006" }}</span><br/>
+          {{ end }} -->
+          {{ if .Params.author }}
+          <span style="font-weight: 600;">Author:</span> <span>{{ .Params.author }}</span><br/>
+          {{ end }}
+        </p>
+
         {{ .Content }}
       </div><!-- .post-content -->
     </div><!-- .inner-md -->
