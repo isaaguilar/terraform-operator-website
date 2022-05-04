@@ -1,6 +1,6 @@
 ---
 title: How to use Private Repos over SSH with Terraform Operator
-draft: true
+draft: false
 excerpt: >-
   Often Terraform modules are not stored in public git repos for any number of reasons. Fortunately, with the right keys or tokens, it's not that hard to access them. In this article we'll go over a few common examples of how to access terraform modules in private repos with Terraform Operator.
 date: '2022-05-04'
@@ -45,40 +45,36 @@ Often Terraform modules are not stored in public git repos for any number of rea
 
 #### Example 2: Private Repos over SSH
 
-To start, you'll need an basic understanding of Git, and GitHub. Let's pretend our private git repo is hosted on GitHub and we want to use HTTPS to download our module. First, get an "Access Token" from GitHub. Check the "repo" access checkbox. (Need help? Check out this article to help you [Generate Access Tokens from Github Account](https://techmonger.github.io/58/github-token-authentication/#generate-token).)
+To start, you'll need an basic understanding of Git and SSH. Let's pretend our private git repo is hosted on `gitlab.com` and we want to use SSH to download our module. I'm not going to go into generating an SSH key and I'll assume you have a key that can access your git server.
 
-<img style="padding-top:20px;padding-bottom:20px;" src="/images/gh-access-token-setup.png"/>
-
-When you create the token, the token will only show up once. Copy it. We'll save this to the cluster as a Secret.
-
-<img style="padding-top:20px;padding-bottom:20px;" src="/images/gh-access-token.png"/>
-
-Create a Secret in your cluster with the token.
-
+The first thing we need to do is save the SSH key to Kubernetes as a Secret. Below is an example of me adding my key to the Kubernetes cluster. Note that the ssh key location on my system is at `~/.ssh/mygitid_rsa`. Change the filepath according to the key you've configured to access your git server.
 
 ```bash
-GHTOKEN=$(printf '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' | base64)
+$ GITSSHKEY=$(cat ~/.ssh/mygitid_rsa | base64)
 
-cat << EOF | kubectl apply -f -
+$ cat << EOF | kubectl apply -f -
 apiVersion: v1
 data:
-  mytoken: $GHTOKEN
+  my_key: $GITSSHKEY
 kind: Secret
 metadata:
-  name: gh-access-token
+  name: my-gitlab-ssh-key
   namespace: default
 type: Opaque
 EOF
 ```
 
-In the above code, we saved our Github token to the cluster as a Secret called `gh-access-token` with data key `mytoken` in the `default` namespace. Next we'll add these item to our terraform k8s-resource manifest.
+In the above commands, we saved our GitLab access key to the cluster as a Secret called `my-gitlab-ssh-key` with data key `my_key` in the `default` namespace. Next we'll add these item to our terraform k8s-resource manifest.
+
+
+
 
 Create the terraform k8s-resource manifest, let's call it `terraform.yaml`. The following is an example of my manifest. Notice the `scmAuthMethods`. The `scmAuthMethods` is an array of objects.
 
-1. In example below, we'll fill in `host:` with `github.com`. That is the host our token is valid for.
+1. In example below, we'll fill in `host:` with `gitlab.com`. That is the host our ssh-key is valid for.
 2. Next, we're using `git:` as the SCM (Source Control Management).
-3. Under `git:`, we're going with the `https:` protocol. The other protocol for git is `ssh:` which will be covered later.
-4. And finally under `https:`, the secret that was created earlier is defined in `tokenSecretRef:`.
+3. Under `git:`, we're going with the `ssh:` protocol.
+4. And finally under `ssh:`, the secret that was created earlier is defined in `sshKeySecretRef:`.
 
 Take a look for the final manifest:
 
@@ -89,29 +85,27 @@ Take a look for the final manifest:
 apiVersion: tf.isaaguilar.com/v1alpha1
 kind: Terraform
 metadata:
-  name: my-module
+  name: my-private-ssh-module
 spec:
   terraformVersion: 1.1.9
-  terraformModule: https://github.com/isaaguilar/terraform-do-something-awesome.git?ref=main
+  terraformModule: git@gitlab.com:isaaguilar/terraform-awesome-module.git?ref=main
   customBackend: |-
     terraform {
       backend "kubernetes" {
-        secret_suffix     = "my-module"
+        secret_suffix     = "my-private-ssh-module"
         namespace         = "default"
         in_cluster_config = true
       }
     }
-
   # *-------------------------*
   scmAuthMethods:
-  - host: github.com
+  - host: gitlab.com
     git:
-      https:
-        tokenSecretRef:
-          name: gh-access-token
-          key: mytoken
+      ssh:
+        sshKeySecretRef:
+          name: my-gitlab-ssh-key
+          key: my_key
   # *-------------------------*
-
   keepLatestPodsOnly: true
   ignoreDelete: false
   writeOutputsToStatus: true
@@ -123,15 +117,40 @@ Apply the manifest using kubectl and we're done and terraform-operator will hand
 kubectl apply -f terraform.yaml
 ```
 
-> Watch this short terminal capture which follows the steps above of
-> using a Github Token with Terraform Operator.
-> <script id="asciicast-491183" src="https://asciinema.org/a/491183.js" async></script>
+Here's the logs from the setup pod which completed successfully:
+
+```
+Cloning into '/tmp/tmp.DjOLKO/stack'...
+Warning: Permanently added 'gitlab.com,172.65.251.78' (ECDSA) to the list of known hosts.
+Already on 'main'
+Your branch is up to date with 'origin/main'.
+Using custom backend
+stream closed
+```
+
 
 <div class="note">
-A few notes:
+SSH keys are usually tied to a user on the target server. Github, GitLab, and other Git providers assign the user <code>git</code> to any ssh key used to access a repo.
+<br/><br/>
+Private git servers can definitely be used as well. The main difference will be seen when defining the terraform module in the terraform k8s-resource.
+<br/><br/>
 
-1. When an HTTPS token is defined for a host, all git pulls, whether it be downloading the initial module or any module pulled within the a module will use the defined token.
-2. Using an HTTPS token to pull a git module that pulls over SSH will not work. Use `scmAuthMethods[].git.ssh`.
-3. Only a single token can be used to pull git resources over HTTPS. Use SSH if there are multiple git hosts for your Terraform modules.
+For example, a github module would look like the following:
+
+```yaml
+kind: Terraform
+spec:
+  ...
+  terraformModule: git@github.com:isaaguilar/terraform-my-awesome-module.git
+```
+
+If a private git server was used, it might look something like the following:
+
+```yaml
+kind: Terraform
+spec:
+  ...
+  terraformModule: bob@172.16.0.200:/home/bob/terraform/my-awesome-module
+```
+
 </div>
-
