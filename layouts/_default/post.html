@@ -15,11 +15,7 @@
           {{ $.Params.subtitle | safeHTML }}
         </div>
         {{ end }}
-      </div>
-    </header>
-    <div class="inner-md outer">
-      <div class="post-content">
-        <p>
+        <p style="text-align: center;">
           <!-- {{ if .Params.date }}
           <span style="font-weight: 600;">Date:</span> <span>{{ .Params.date | dateFormat "January 02, 2006" }}</span><br/>
           {{ end }} -->
@@ -27,6 +23,11 @@
           <span style="font-weight: 600;">Author:</span> <span>{{ .Params.author }}</span><br/>
           {{ end }}
         </p>
+      </div>
+    </header>
+    <div class="inner-md outer">
+      <div class="post-content">
+
 
         {{ .Content }}
       </div><!-- .post-content -->

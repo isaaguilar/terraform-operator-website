@@ -1,54 +1,51 @@
 ---
-title: How to use Private Repos with Terraform Operator
-draft: false
+title: How to use Private Repos over SSH with Terraform Operator
+draft: true
 excerpt: >-
   Often Terraform modules are not stored in public git repos for any number of reasons. Fortunately, with the right keys or tokens, it's not that hard to access them. In this article we'll go over a few common examples of how to access terraform modules in private repos with Terraform Operator.
-date: '2022-04-29'
+date: '2022-05-04'
 author: Isa Aguilar
 # thumb_image: images/4.jpg
 image: images/hcl.png
 seo:
-  title: Introducing The Libris Theme
+  title: How to use Private Repos over SSH with Terraform Operator
   description: >-
-    Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit
-    accumsan
+    A demo of terraform-operator using SSH keys to access private git repos
   extra:
     - name: 'og:type'
       value: article
       keyName: property
     - name: 'og:title'
-      value: Introducing The Libris Theme
+      value: How to use Private Repos over SSH with Terraform Operator
       keyName: property
     - name: 'og:description'
       value: >-
-        Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit
-        accumsan
+        A demo of terraform-operator using SSH keys to access private git repos
       keyName: property
     - name: 'og:image'
-      value: images/3.jpg
+      value: images/hcl.png
       keyName: property
       relativeUrl: true
     - name: 'twitter:card'
       value: summary_large_image
     - name: 'twitter:title'
-      value: Introducing The Libris Theme
+      value: How to use Private Repos over SSH with Terraform Operator
     - name: 'twitter:description'
       value: >-
-        Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit
-        accumsan
+        A demo of terraform-operator using SSH keys to access private git repos
     - name: 'twitter:image'
       value: images/hcl.png
       relativeUrl: true
 layout: post
 ---
 
-Often Terraform modules are not stored in public git repos for any number of reasons. Fortunately, with the right keys or tokens, it's not that hard to access them. In this article we'll go over a few common examples of how to access terraform modules in private repos with Terraform Operator.
-
 ### Using Private Repo (SSH) Keys and (HTTPS) Tokens
 
-To access private repos, generally an SSH key or a token is required. Terraform can accept both keys (for SSH) and tokens (for HTTPS) to access git repos. Both keys or tokens must first be added to the cluster as a kubernetes Secret.
+Often Terraform modules are not stored in public git repos for any number of reasons. Fortunately, with the right keys or tokens, it's not that hard to access them. In this article we'll go over a few common examples of how to access terraform modules in private repos with Terraform Operator. In general, Terraform can accept either ssh keys and/or tokens to access modules in git repos.
 
-To start, you'll need an basic understanding of Git, SSH, and optionally GitHub. Let's pretend our private git repo is hosted on GitHub and we want to use HTTPS to download our module. First, get an "Access Token" from GitHub. Check the "repo" access checkbox. (Need help? Check out this article to help you [Generate Access Tokens from Github Account](https://techmonger.github.io/58/github-token-authentication/#generate-token).)
+#### Example 2: Private Repos over SSH
+
+To start, you'll need an basic understanding of Git, and GitHub. Let's pretend our private git repo is hosted on GitHub and we want to use HTTPS to download our module. First, get an "Access Token" from GitHub. Check the "repo" access checkbox. (Need help? Check out this article to help you [Generate Access Tokens from Github Account](https://techmonger.github.io/58/github-token-authentication/#generate-token).)
 
 <img style="padding-top:20px;padding-bottom:20px;" src="/images/gh-access-token-setup.png"/>
 
@@ -74,11 +71,21 @@ type: Opaque
 EOF
 ```
 
-Here we save our Github token to the cluster as a Secret in a data key called `mytoken` in the `default` namespace. The namespace is important since the terraform k8s-resource we will create next can only access the Secret in the same namespace.
+In the above code, we saved our Github token to the cluster as a Secret called `gh-access-token` with data key `mytoken` in the `default` namespace. Next we'll add these item to our terraform k8s-resource manifest.
 
-After the Secret is created, next create the terraform k8s-resource manifest and add the key we created above to `scmAuthMethods` of the terraform spec.
+Create the terraform k8s-resource manifest, let's call it `terraform.yaml`. The following is an example of my manifest. Notice the `scmAuthMethods`. The `scmAuthMethods` is an array of objects.
+
+1. In example below, we'll fill in `host:` with `github.com`. That is the host our token is valid for.
+2. Next, we're using `git:` as the SCM (Source Control Management).
+3. Under `git:`, we're going with the `https:` protocol. The other protocol for git is `ssh:` which will be covered later.
+4. And finally under `https:`, the secret that was created earlier is defined in `tokenSecretRef:`.
+
+Take a look for the final manifest:
 
 ```yaml
+---
+# terraform.yaml
+
 apiVersion: tf.isaaguilar.com/v1alpha1
 kind: Terraform
 metadata:
@@ -110,20 +117,21 @@ spec:
   writeOutputsToStatus: true
 ```
 
-The `scmAuthMethods` is an array of methods. Each method takes a `host:`, in this case we're using `github.com`. And for this host, we're using `git:` as an SCM.
+Apply the manifest using kubectl and we're done and terraform-operator will handle the rest.
 
-For git, we have the option use use `https:` like we're doing here. Another option is `ssh:` which we'll try later on. Both `https` and `ssh` options have configurations for the secret reference.
+```bash
+kubectl apply -f terraform.yaml
+```
 
-Apply the terraform k8s manifest and there shouldn't be any issues getting to the private repo on github.
+> Watch this short terminal capture which follows the steps above of
+> using a Github Token with Terraform Operator.
+> <script id="asciicast-491183" src="https://asciinema.org/a/491183.js" async></script>
 
-**Using a token to get private repo**
-
-<script id="asciicast-491183" src="https://asciinema.org/a/491183.js" async></script>
-
+<div class="note">
 A few notes:
 
 1. When an HTTPS token is defined for a host, all git pulls, whether it be downloading the initial module or any module pulled within the a module will use the defined token.
 2. Using an HTTPS token to pull a git module that pulls over SSH will not work. Use `scmAuthMethods[].git.ssh`.
 3. Only a single token can be used to pull git resources over HTTPS. Use SSH if there are multiple git hosts for your Terraform modules.
-
+</div>
 
