@@ -34,7 +34,7 @@ Generally, the helm chart is kept up-to-date with the latest stable release of T
 helm repo add isaaguilar https://isaaguilar.github.io/helm-charts
 helm repo update
 helm upgrade --install terraform-operator isaaguilar/terraform-operator \
-  --version v0.2.8 --namespace tf-system --create-namespace
+  --version v0.2.9 --namespace tf-system --create-namespace
 ```
 
 <div class="note">
