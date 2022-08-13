@@ -35,7 +35,7 @@
                 {{ end}}
 
                 {{ range $child_page := $child_pages }}
-                {{ if eq .Params.hidden true }}
+                {{ if and (eq .Params.hidden true) (ne .Params.subMenuHidden true) }}
                 <div class="docs-section-item"><a href="{{ $child_page.URL }}" class="docs-item-link">{{ $child_page.Title }}<span class="icon-angle-right" aria-hidden="true"></span></a></div>
                 {{ end }}
                 {{ end }}
