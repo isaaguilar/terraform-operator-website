@@ -4,7 +4,11 @@
   <div class="docs-content">
     {{ $include_dict := dict "page" . "Site" .Site }}
     {{ partial "docs_menu.html" $include_dict }}
+    {{ if (ne .Params.showJumpToSection false) }}
     <article class="post type-docs">
+    {{ else }}
+    <article class="post type-docs-full">
+    {{ end }}
       <div class="post-inside">
         <header class="post-header">
           <h1 class="post-title line-left">{{ .Params.title }}</h1>
@@ -45,12 +49,14 @@
         </div><!-- .post-content -->
       </div><!-- .post-inside -->
     </article><!-- .post -->
+    {{ if (ne .Params.showJumpToSection false) }}
     <nav id="page-nav" class="page-nav">
       <div id="page-nav-inside" class="page-nav-inside sticky">
         <h2 class="page-nav-title">Jump to Section</h2>
         <div id="page-nav-link-container"></div>
       </div><!-- .page-nav-inside -->
     </nav><!-- .page-nav -->
+    {{ end }}
   </div><!-- .docs-content -->
 </div><!-- .inner-->
 

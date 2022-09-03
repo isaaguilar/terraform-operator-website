@@ -22,6 +22,7 @@ seo:
       value: This is the references page
 layout: docs
 weight: 1013
+showJumpToSection: false
 aliases:
 - /docs/references/latest
 ---
