@@ -166,6 +166,43 @@
       }
     }
 
+    table.apitable code.field{
+      background-color: transparent;
+      color: rgb(214, 102, 51);
+    }
+
+    table.apitable td, table.apitable th{
+      padding-left: 15px;
+    }
+
+    table.apitable th{
+      padding-left: 25px;
+    }
+
+    table.apitable tr:first-child{
+      border-bottom: 2px solid #aaa;
+    }
+
+    table.apitable tr:last-child{
+      border-bottom: 2px solid #aaa;
+    }
+
+    table.apitable tr:nth-child(odd){
+      background-color: #fcfcfc;
+    }
+
+    table.apitable tr:nth-child(odd):hover{
+      background-color: #f9f9f9;
+    }
+
+    table.apitable tr:nth-child(even){
+      background-color: #f7f7f7;
+    }
+
+    table.apitable tr:nth-child(even):hover{
+      background-color: #f1f1f1;
+    }
+
     .post-inside {
       background: #fff;
       border: 1px solid $gray-300;

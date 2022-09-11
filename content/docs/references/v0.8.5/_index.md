@@ -1,8 +1,8 @@
 ---
-title: API Reference v0.8.5
+title: Release v0.8.5
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: API Reference v0.8.5
+  title: Release v0.8.5
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'
@@ -23,13 +23,13 @@ seo:
 layout: docs
 weight: 1013
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+# aliases:
+# - /docs/references/latest
 ---
 
 
 <div class="note">
-This doc is good for versions between v0.8.3 - v0.8.5
+This doc is good for Terraform Operator releases v0.8.3 - v0.8.5 and covers the resource apiVersion: <code>v1alpha1</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).

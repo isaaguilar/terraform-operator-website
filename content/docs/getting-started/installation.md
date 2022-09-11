@@ -34,7 +34,7 @@ Generally, the helm chart is kept up-to-date with the latest stable release of T
 helm repo add isaaguilar https://isaaguilar.github.io/helm-charts
 helm repo update
 helm upgrade --install terraform-operator isaaguilar/terraform-operator \
-  --version v0.2.11 --namespace tf-system --create-namespace
+  --version v0.2.12 --namespace tf-system --create-namespace
 ```
 
 <div class="note">
@@ -46,13 +46,13 @@ See <a href="https://github.com/isaaguilar/helm-charts/tree/master/charts/terraf
 First install the CRDs
 
 ```bash
-kubectl apply -f deploy/crds/tf.isaaguilar.com_terraforms_crd.yaml
+kubectl apply -f ./deploy/crds/tf.isaaguilar.com_terraforms_crd.yaml
 ```
 
 Then install the controller
 
 ```bash
-kubectl apply -f deploy --namespace tf-system
+kubectl apply -f ./deploy --namespace tf-system
 ```
 
 Once the operator is installed, terraform resources are ready to be deployed.

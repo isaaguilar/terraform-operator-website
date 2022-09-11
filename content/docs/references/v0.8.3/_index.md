@@ -1,8 +1,8 @@
 ---
-title: API Reference v0.8.3
+title: Release v0.8.3
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: API Reference v0.8.3
+  title: Release v0.8.3
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'

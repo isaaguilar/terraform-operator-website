@@ -27,6 +27,6 @@ Terraform Operator, when boiled down to it's core, is a workflow runner. The
 Controller takes a config and orchestrates pods to execute in a workflow. Take
 a look at this diagram to see the basic workflow:
 
-<p align="center"><a href="https://s3.amazonaws.com/classic.isaaguilar.com/tfo-workflow-diagram.png" border="0">
-<img src="https://s3.amazonaws.com/classic.isaaguilar.com/tfo-workflow-diagram.png" alt="Terraform Operator Workflow Diagram"></img>
+<p align="center"><a href="https://s3.amazonaws.com/classic.isaaguilar.com/tfo-workflow-diagramv2.png" border="0">
+<img src="https://s3.amazonaws.com/classic.isaaguilar.com/tfo-workflow-diagramv2.png" alt="Terraform Operator Workflow Diagram"></img>
 </a></p>

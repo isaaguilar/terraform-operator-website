@@ -32,18 +32,22 @@ Create a Terraform resource by running this _hello_world_ example:
 
 
 ```bash
-printf 'apiVersion: tf.isaaguilar.com/v1alpha1
+printf 'apiVersion: tf.isaaguilar.com/v1alpha2
 kind: Terraform
 metadata:
   name: hello-tfo
+  namespace: "default"
 spec:
-  terraformModule: https://github.com/isaaguilar/simple-aws-tf-modules.git//create_file
+  terraformVersion: 1.3.0-beta1
+  terraformModule:
+    source: https://github.com/isaaguilar/simple-aws-tf-modules.git//create_file
 
-  customBackend: |-
+  backend: |-
     terraform {
       backend "kubernetes" {
         secret_suffix    = "hello-tfo"
         in_cluster_config  = true
+        namespace = "default"
       }
     }
 
