@@ -2,8 +2,9 @@ root_docs_path: /docs
 sections:
   # - about
   - getting-started
+  - features
   - references
-  - core-concepts
+  - architecture
   # - ui-components
   # - manage-content
   # - tools

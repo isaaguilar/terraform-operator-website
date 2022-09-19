@@ -1,26 +1,28 @@
 ---
-title: References
-excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
+title: Architecture
+excerpt: In this section you'll find information about Terraform Operator architecture.
 seo:
-  title: References
-  description: This is the references page
+  title: Architecture
+  description: This is the architecture page
   extra:
     - name: 'og:type'
       value: website
       keyName: property
     - name: 'og:title'
-      value: References
+      value: Architecture
       keyName: property
     - name: 'og:description'
-      value: This is the references page
+      value: This is the architecture page
       keyName: property
     - name: 'twitter:card'
       value: summary
     - name: 'twitter:title'
-      value: References
+      value: Architecture
     - name: 'twitter:description'
-      value: This is the references page
+      value: This is the architecture page
 layout: docs
+aliases:
+- /docs/core-concepts
 ---
 
 ***

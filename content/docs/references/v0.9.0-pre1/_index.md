@@ -1,8 +1,8 @@
 ---
-title: Release v0.9.0
+title: Release v0.9.0-pre1
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Release v0.9.0
+  title: Release v0.9.0-pre1
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'
@@ -23,16 +23,16 @@ seo:
 layout: docs
 weight: 1012
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+hidden: true
+subMenuHidden: true
 ---
 
 
-<div class="note">
-This doc is good for Terraform Operator release v0.9.0-pre2+ and covers the resource apiVersion: <code>v1alpha2</code>
+<div class="important">
+This doc is good for Terraform Operator release v0.9.0-pre1 only and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
-The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
+The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../core-concepts).
 
 
 
