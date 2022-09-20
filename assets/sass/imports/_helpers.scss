@@ -36,7 +36,8 @@
 
 // Notifications, allerts
 .note,
-.important {
+.important,
+.comment {
   border-radius: $border-radius;
   color: $gray-700;
   margin: 1.875em 0;
@@ -55,6 +56,11 @@
 .important {
   background: $red-pale;
   border-left: 5px solid $red;
+}
+
+.comment {
+  background: $gray-200;
+  border-left: 5px solid $gray-400;
 }
 
 // Background gradients

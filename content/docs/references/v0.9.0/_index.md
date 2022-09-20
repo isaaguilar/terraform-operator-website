@@ -58,7 +58,12 @@ The following is a list of configurable parameters of the `Terraform` CRD. A bri
 
 
 
-<h2 id="TerraformSpec_v1alpha2_tf.isaaguilar.com">TerraformSpec v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="TerraformSpec_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#TerraformSpec_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  TerraformSpec v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -139,7 +144,12 @@ Each plugin is run once per generation. Plugins that are older than the current 
 
 
 
-<h2 id="TerraformStatus_v1alpha2_tf.isaaguilar.com">TerraformStatus v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="TerraformStatus_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#TerraformStatus_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  TerraformStatus v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -155,7 +165,12 @@ Each plugin is run once per generation. Plugins that are older than the current 
 
 
 
-<h2 id="Credentials_v1alpha2_tf.isaaguilar.com">Credentials v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Credentials_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Credentials_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Credentials v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -167,7 +182,12 @@ Each plugin is run once per generation. Plugins that are older than the current 
 
 
 
-<h2 id="Images_v1alpha2_tf.isaaguilar.com">Images v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Images_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Images_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Images v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -179,7 +199,12 @@ Each plugin is run once per generation. Plugins that are older than the current 
 
 
 
-<h2 id="Module_v1alpha2_tf.isaaguilar.com">Module v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Module_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Module_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Module v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -196,7 +221,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="Plugin_v1alpha2_tf.isaaguilar.com">Plugin v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Plugin_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Plugin_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Plugin v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -213,7 +243,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="ProxyOpts_v1alpha2_tf.isaaguilar.com">ProxyOpts v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="ProxyOpts_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#ProxyOpts_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  ProxyOpts v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -225,7 +260,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="SCMAuthMethod_v1alpha2_tf.isaaguilar.com">SCMAuthMethod v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="SCMAuthMethod_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#SCMAuthMethod_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  SCMAuthMethod v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -236,7 +276,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="Setup_v1alpha2_tf.isaaguilar.com">Setup v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Setup_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Setup_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Setup v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -247,7 +292,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="TaskOption_v1alpha2_tf.isaaguilar.com">TaskOption v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="TaskOption_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#TaskOption_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  TaskOption v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -264,7 +314,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="Stage_v1alpha2_tf.isaaguilar.com">Stage v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="Stage_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#Stage_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  Stage v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -282,7 +337,12 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 
 
-<h2 id="AWSCredentials_v1alpha2_tf.isaaguilar.com">AWSCredentials v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="AWSCredentials_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#AWSCredentials_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  AWSCredentials v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -321,7 +381,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="SecretNameRef_v1alpha2_tf.isaaguilar.com">SecretNameRef v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="SecretNameRef_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#SecretNameRef_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  SecretNameRef v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -333,7 +398,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="ImageConfig_v1alpha2_tf.isaaguilar.com">ImageConfig v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="ImageConfig_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#ImageConfig_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  ImageConfig v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -344,7 +414,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="ConfigMapSelector_v1alpha2_tf.isaaguilar.com">ConfigMapSelector v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="ConfigMapSelector_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#ConfigMapSelector_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  ConfigMapSelector v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -355,7 +430,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="SSHKeySecretRef_v1alpha2_tf.isaaguilar.com">SSHKeySecretRef v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="SSHKeySecretRef_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#SSHKeySecretRef_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  SSHKeySecretRef v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -367,7 +447,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="GitSCM_v1alpha2_tf.isaaguilar.com">GitSCM v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="GitSCM_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#GitSCM_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  GitSCM v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -378,7 +463,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="ResourceDownload_v1alpha2_tf.isaaguilar.com">ResourceDownload v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="ResourceDownload_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#ResourceDownload_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  ResourceDownload v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -390,7 +480,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="StageScript_v1alpha2_tf.isaaguilar.com">StageScript v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="StageScript_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#StageScript_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  StageScript v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -402,7 +497,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="GitHTTPS_v1alpha2_tf.isaaguilar.com">GitHTTPS v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="GitHTTPS_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#GitHTTPS_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  GitHTTPS v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -413,7 +513,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="GitSSH_v1alpha2_tf.isaaguilar.com">GitSSH v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="GitSSH_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#GitSSH_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  GitSSH v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">
@@ -424,7 +529,12 @@ However, for a reusable policy consider "StringLike" with a few wildcards to mak
 
 
 
-<h2 id="TokenSecretRef_v1alpha2_tf.isaaguilar.com">TokenSecretRef v1alpha2 tf.isaaguilar.com</h2>
+<h2 id="TokenSecretRef_v1alpha2_tf.isaaguilar.com">
+  <a class="hash-link" data-scroll href="#TokenSecretRef_v1alpha2_tf.isaaguilar.com">
+    <span class="screen-reader-text">Copy</span>
+  </a>
+  TokenSecretRef v1alpha2 tf.isaaguilar.com
+</h2>
 
 
 <table class="apitable">

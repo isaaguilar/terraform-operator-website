@@ -5,21 +5,27 @@ seo:
   title: Installation
   description: Install Terraform Operator with Helm or try the bundled kubectl manifest.
   extra:
+
+    # og
     - name: 'og:type'
       value: website
-      keyName: property
     - name: 'og:title'
-      value: Installation
-      keyName: property
+      value: Installation options for Terraform Operator
     - name: 'og:description'
       value: How to install Terraform Operator with Helm. Or try the bundled manifest for a simple kubectl installation.
-      keyName: property
+    - name: 'og:image'
+      value: https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png
+
+
+    # twitter
     - name: 'twitter:card'
       value: summary
     - name: 'twitter:title'
-      value: Installation
+      value: Installation options for Terraform Operator
     - name: 'twitter:description'
       value: Install Terraform Operator with Helm or the bundled kubectl manifest.
+    - name: 'twitter:image'
+      value: https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png
 layout: docs
 ---
 

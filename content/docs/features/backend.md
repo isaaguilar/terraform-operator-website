@@ -5,25 +5,31 @@ seo:
   title: Backend
   description: Configure the backend to save your TFstate file to
   extra:
+
+    # og
     - name: 'og:type'
       value: website
-      keyName: property
     - name: 'og:title'
-      value: Backend
-      keyName: property
+      value: 'Feature: Backend'
     - name: 'og:description'
-      value: The backend feature enables configuring where tfstate is saved.
-      keyName: property
+      value: The backend feature allows you to configure where to save your tfstate file.
+    - name: 'og:image'
+      value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
+
+    # twitter
     - name: 'twitter:card'
       value: summary
     - name: 'twitter:title'
-      value: Backend
+      value: 'Feature: Backend'
     - name: 'twitter:description'
       value: The backend feature allows you to configure where to save your tfstate file.
+    - name: 'twitter:image'
+      value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 layout: docs
+showJumpToSection: false
 ---
 
-<div class="note"><code>backend</code> is a required field of the <a href="http://localhost:1313/docs/references/latest">Terraform resource kind</a>.</div>
+<div class="note"><code>backend</code> is a required field of the <a href="http://localhost:1313/docs/references/v0.9.0/#TerraformSpec_v1alpha2_tf.isaaguilar.com">Terraform spec</a>.</div>
 
 Backend is a required Terraform Operator field. It is defined as a multiline string in yaml and must be a
 fully defined Terraform [Backend Block](https://www.terraform.io/language/settings/backends/configuration#using-a-backend-block).

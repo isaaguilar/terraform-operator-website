@@ -25,7 +25,7 @@ layout: docs
 
 
 
-Tasks perform a set of tasks and multiple tasks make up a workflow. There are three main groupings of tasks:
+Workflows perform a set of tasks and multiple tasks make up a workflow. There are three main groupings of tasks:
 
 - Terraform
 - Setup
@@ -33,16 +33,13 @@ Tasks perform a set of tasks and multiple tasks make up a workflow. There are th
 
 ### Terraform
 
-Terraform is the task that calls on `terraform` to perform the init | plan | apply workflow. Those familiar
-with Terraform are familiar with this workflow because it's at the heart of how terraform is executed.
-
-The terraform tasks are split up into three pods as well. Each task performs one of the three actions. In order theses are:
+Terraform is the task that calls on `terraform` to perform the `init` | `plan` | `apply` workflow. Those familiar
+with Terraform are familiar with these steps because it's at the heart of how terraform is used. In Terraform
+Operator, each one of these steps is a separate task. The name of each task is also creatively labeled as:
 
 - init
 - plan
 - apply
-
-Upon a successful exit code sent from the task's executing script, the controller will trigger the next task.
 
 ### Setup
 
@@ -54,8 +51,8 @@ files required to perform a successful terraform run.
 These are special tasks that are executed between Terraform tasks. Terraform users understand that not every
 terraform workflow is a standalone execution; it would be nice if it was.
 
-Scripts allow users to write their own logic, do file manipulation, ensure vars, run tests, or a plethora of
-other things as a stage in the terraform operator workflow.
+Scripts allow users to write their own logic that runs as as a stage in the Terraform Operator workflow. This
+could include some file manipulation, ensure vars, run tests, or in general, anything.
 
 
 ## Modifying and Extending Tasks
