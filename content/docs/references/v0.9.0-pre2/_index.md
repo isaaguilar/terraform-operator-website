@@ -21,15 +21,15 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1010
+weight: 1011
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+hidden: true
+subMenuHidden: true
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.9.0-pre3+ and covers the resource apiVersion: <code>v1alpha2</code>
+This doc is good for Terraform Operator release v0.9.0-pre2 only and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -111,11 +111,11 @@ Example definition of a plugin:
 
 ```yaml
   plugins:
-    monitor:
-      image: ghcr.io/galleybytes/monitor:latest
-      imagePullPolicy: IfNotPresent
-      when: After
-      task: setup
+  - monitor:
+     image: ghcr.io/galleybytes/monitor:latest
+     imagePullPolicy: IfNotPresent
+     when: After
+     task: setup
 ```
 
 The above plugin task will run after the setup task has completed.
@@ -124,11 +124,11 @@ Alternatively, a plugin can be triggered to start at the same time of another ta
 
 ```yaml
   plugins:
-    monitor:
-      image: ghcr.io/galleybytes/monitor:latest
-      imagePullPolicy: IfNotPresent
-      when: At
-      task: setup
+  - monitor:
+     image: ghcr.io/galleybytes/monitor:latest
+     imagePullPolicy: IfNotPresent
+     when: At
+     task: setup
 ```
 
 Each plugin is run once per generation. Plugins that are older than the current generation are automatically reaped. </td></tr>
@@ -302,10 +302,10 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 <table class="apitable">
 <tr><th>Field</th><th>Description</th></tr>
+<tr><td><code class="field">affects</code><br/><i>array[string]</i></td><td> Affects is a list of tasks these options will get applied to. </td></tr>
 <tr><td><code class="field">annotations</code><br/><i>object</i></td><td> Annotaitons extra annotaitons to add the task pods </td></tr>
 <tr><td><code class="field">env</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/core/v1#EnvVar">k8s.io/api/core/v1.EnvVar</a>]</i></td><td> List of environment variables to set in the task pods. </td></tr>
 <tr><td><code class="field">envFrom</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/core/v1#EnvFromSource">k8s.io/api/core/v1.EnvFromSource</a>]</i></td><td> List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated. </td></tr>
-<tr><td><code class="field">for</code><br/><i>array[string]</i></td><td> For is a list of tasks these options will get applied to. </td></tr>
 <tr><td><code class="field">labels</code><br/><i>object</i></td><td> Labels extra labels to add task pods. </td></tr>
 <tr><td><code class="field">policyRules</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/rbac/v1#PolicyRule">k8s.io/api/rbac/v1.PolicyRule</a>]</i></td><td> RunnerRules are RBAC rules that will be added to all runner pods. </td></tr>
 <tr><td><code class="field">resources</code><br/><i><a href="https://pkg.go.dev/k8s.io/api/core/v1#ResourceRequirements">k8s.io/api/core/v1.ResourceRequirements</a></i></td><td> Compute Resources required by the task pods. </td></tr>

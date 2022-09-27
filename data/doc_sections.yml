@@ -2,6 +2,7 @@ root_docs_path: /docs
 sections:
   # - about
   - getting-started
+  # - troubleshooting
   - features
   - references
   - architecture
@@ -10,3 +11,4 @@ sections:
   # - tools
   # - faq
   - community
+

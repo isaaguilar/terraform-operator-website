@@ -29,12 +29,19 @@ seo:
 layout: docs
 ---
 
-<!--<div class="note">
-Generally, the helm chart is kept up-to-date with the latest stable release of Terraform Operator. However, the Terraform Operator <code>v0.5.0</code> release is not yet ready for installation with the current helm-chart release. Please use the <code>kubectl</code> install method instead.
+<!--<div class="important">
+
 </div>-->
 
 <div class="important">
 These docs will reference the release v0.9.0-pre2+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
+<br/><br/>
+If this is a first installation on a cluster, the latest is safe to install.
+<br/><br/>
+For those who are upgrading the apiVersion from v1alpha1 to v1alpha2, the automatic conversion is still a
+work-in-progress. Use the helm release version <code>v0.2.11</code> to prevent upgrading the apiVersion.
+<br/><br/>
+As always, please submit issues and bug on the <a href="https://github.com/isaaguilar/terraform-operator/issues">Terraform-Operator GitHub Issues Page</a>.
 </div>
 
 ## Install using Helm
@@ -65,7 +72,7 @@ Here is a nifty script to install the right CRD for a specific version of the he
 #!/usr/bin/env bash
 tmpdir=$(mktemp -d)
 helm fetch isaaguilar/terraform-operator -d $tmpdir --version v0.2.13 --untar
-kubectl apply -f $tmpdir/crds
+kubectl apply -f $tmpdir/terraform-operator/crds
 ```
 
 ## Install using kubectl
