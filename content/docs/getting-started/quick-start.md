@@ -52,6 +52,7 @@ spec:
     }
 
   keepCompletedPods: true
+  ignoreDelete: true
 '|kubectl apply -f-
 ```
 

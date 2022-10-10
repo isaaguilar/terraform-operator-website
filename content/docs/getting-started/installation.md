@@ -34,7 +34,7 @@ layout: docs
 </div>-->
 
 <div class="important">
-These docs will reference the release v0.9.0-pre2+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
+These docs will reference the release v0.9.0-pre3+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
 <br/><br/>
 If this is a first installation on a cluster, the latest is safe to install.
 <br/><br/>
@@ -46,21 +46,13 @@ As always, please submit issues and bug on the <a href="https://github.com/isaag
 
 ## Install using Helm
 
-Install the latest using helm:
+**Add or update the helm repos**
 
 ```bash
 #!/usr/bin/env bash
-helm repo add isaaguilar https://isaaguilar.github.io/helm-charts
+helm repo add galleybytes https://galleybytes.github.io/helm-charts
 helm repo update
-helm upgrade --install terraform-operator isaaguilar/terraform-operator \
-  --version v0.2.13 --namespace tf-system --create-namespace
 ```
-
-See previous versions that can be installed by running `helm search repo -l`.
-
-<div class="note">
-See <a href="https://github.com/isaaguilar/helm-charts/tree/master/charts/terraform-operator">terraform-operator's helm chart</a> for options.
-</div>
 
 **CRD Upgrades when using Helm**
 
@@ -71,9 +63,24 @@ Here is a nifty script to install the right CRD for a specific version of the he
 ```bash
 #!/usr/bin/env bash
 tmpdir=$(mktemp -d)
-helm fetch isaaguilar/terraform-operator -d $tmpdir --version v0.2.13 --untar
+helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.2.17 --untar
 kubectl apply -f $tmpdir/terraform-operator/crds
 ```
+
+**Install the latest using helm:**
+
+```bash
+#!/usr/bin/env bash
+helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.2.17 --namespace tf-system --create-namespace
+```
+
+See previous versions that can be installed by running `helm search repo -l`.
+
+<div class="note">
+See <a href="https://github.com/isaaguilar/helm-charts/tree/master/charts/terraform-operator">terraform-operator's helm chart</a> for options.
+</div>
+
+
 
 ## Install using kubectl
 
@@ -83,7 +90,7 @@ Install the bundle which includes the correct CRD version for the release:
 #!/usr/bin/env bash
 git clone https://github.com/isaaguilar/terraform-operator.git
 cd terraform-operator
-kubectl apply -f deploy/bundles/v0.9.0-pre2/v0.9.0-pre2.yaml
+kubectl apply -f deploy/bundles/v0.9.0-pre4/v0.9.0-pre4.yaml
 ```
 
 Once the operator is installed, terraform resources are ready to be deployed.
