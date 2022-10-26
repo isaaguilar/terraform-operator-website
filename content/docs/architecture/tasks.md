@@ -31,6 +31,36 @@ Workflows perform a set of tasks and multiple tasks make up a workflow. There ar
 - Setup
 - Scripts
 
+## Tasks by Name and Order of Execution
+
+Tasks used to **create/update** resources are used in the normal workflow process. This is the list in order of execution:
+
+- `setup`
+- `preinit`
+- `init`
+- `postinit`
+- `preplan`
+- `plan`
+- `postplan`
+- `preapply`
+- `apply`
+- `postapply`
+
+Tasks uses to **destroy** resources created by terraform are used when the user deletes the tf resource from Kubernetes. For a delete workflow to be run, another condition in the tf resource's spec must exist; `ignoreDelete: false`
+
+This is the list of deletion tasks in order of execution:
+
+- `setup-delete`
+- `preinit-delete`
+- `init-delete`
+- `postinit-delete`
+- `preplan-delete`
+- `plan-delete`
+- `postplan-delete`
+- `preapply-delete`
+- `apply-delete`
+- `postapply-delete`
+
 ### Terraform
 
 Terraform is the task that calls on `terraform` to perform the `init` | `plan` | `apply` workflow. Those familiar
