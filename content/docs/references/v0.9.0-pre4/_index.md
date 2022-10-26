@@ -21,15 +21,15 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1008
+weight: 1009
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+hidden: true
+subMenuHidden: true
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.9.0-alpha1+ and covers the resource apiVersion: <code>v1alpha2</code>
+This doc is good for Terraform Operator release v0.9.0-pre4 and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
