@@ -63,7 +63,7 @@ Here is a nifty script to install the right CRD for a specific version of the he
 ```bash
 #!/usr/bin/env bash
 tmpdir=$(mktemp -d)
-helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.2.19 --untar
+helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.2.20 --untar
 kubectl apply -f $tmpdir/terraform-operator/crds
 ```
 
@@ -71,7 +71,7 @@ kubectl apply -f $tmpdir/terraform-operator/crds
 
 ```bash
 #!/usr/bin/env bash
-helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.2.19 --namespace tf-system --create-namespace
+helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.2.20 --namespace tf-system --create-namespace
 ```
 
 See previous versions that can be installed by running `helm search repo -l`.
