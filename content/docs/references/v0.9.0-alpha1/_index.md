@@ -21,15 +21,15 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1007
+weight: 1008
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+hidden: true
+subMenuHidden: true
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.9.0-alpha2+ and covers the resource apiVersion: <code>v1alpha2</code>
+This doc is good for Terraform Operator release v0.9.0-alpha1+ and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -132,17 +132,6 @@ Alternatively, a plugin can be triggered to start at the same time of another ta
 ```
 
 Each plugin is run once per generation. Plugins that are older than the current generation are automatically reaped. </td></tr>
-<tr><td><code class="field">requireApproval</code><br/><i>boolean</i></td><td> RequireApproval will place a hold after completing a plan that prevents the workflow from continuing. However, the implementation of the hold takes place in the tf.sh script.
-
-(See https://github.com/GalleyBytes/terraform-operator-tasks/blob/master/tf.sh)
-
-Depending on the script that executes during the workflow, this field may be ignored if not implemented by the user properly. To approve a workflow using the official galleybytes implementation, a file needs to be placed on the workflow's persistent-volume:
-
-- <code>$TFO_GENERATION_PATH/\_approved\_\<uuid-of-plan-pod></code> - to approve the workflow
-
-- <code>$TFO_GENERATION_PATH/\_canceled\_\<uuid-of-plan-pod></code> - to deny and cancel the workflow
-
-Deleting the plan that is holding will spawn a new plan and a new approval will be required. </td></tr>
 <tr><td><code class="field">scmAuthMethods</code><br/><i>array[<a href="#SCMAuthMethod_v1alpha2_tf.isaaguilar.com">SCMAuthMethod</a>]</i></td><td> SCMAuthMethods define multiple SCMs that require tokens/keys </td></tr>
 <tr><td><code class="field">serviceAccount</code><br/><i>string</i></td><td> ServiceAccount use a specific kubernetes ServiceAccount for running the create + destroy pods. If not specified we create a new ServiceAccount per Terraform </td></tr>
 <tr><td><code class="field">setup</code><br/><i><a href="#Setup_v1alpha2_tf.isaaguilar.com">Setup</a></i></td><td> Setup is configuration generally used once in the setup task </td></tr>
@@ -320,17 +309,6 @@ If a key is defined, the value is used as the module else the entirety of the da
 <tr><td><code class="field">labels</code><br/><i>object</i></td><td> Labels extra labels to add task pods. </td></tr>
 <tr><td><code class="field">policyRules</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/rbac/v1#PolicyRule">k8s.io/api/rbac/v1.PolicyRule</a>]</i></td><td> RunnerRules are RBAC rules that will be added to all runner pods. </td></tr>
 <tr><td><code class="field">resources</code><br/><i><a href="https://pkg.go.dev/k8s.io/api/core/v1#ResourceRequirements">k8s.io/api/core/v1.ResourceRequirements</a></i></td><td> Compute Resources required by the task pods. </td></tr>
-<tr><td><code class="field">restartPolicy</code><br/><i>string</i></td><td> RestartPolicy describes how the task should be restarted. Only one of the following restart policies may be specified.
-
-```go
-  const (
-    RestartPolicyAlways    RestartPolicy = "Always"
-    RestartPolicyOnFailure RestartPolicy = "OnFailure"
-    RestartPolicyNever     RestartPolicy = "Never"
-  )
-```
-
-If no policy is specified, the restart policy is set to "Never". </td></tr>
 <tr><td><code class="field">script</code><br/><i><a href="#StageScript_v1alpha2_tf.isaaguilar.com">StageScript</a></i></td><td> Script is used to configure the source of the task's executable script. </td></tr>
 </table>
 
