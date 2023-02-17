@@ -31,7 +31,7 @@ showJumpToSection: false
 
 <div class="comment"><code>plugins</code> is an optional field in the <a href="http://localhost:1313/docs/references/v0.9.0/#TerraformSpec_v1alpha2_tf.isaaguilar.com">Terraform spec</a>.</div>
 
-Plugins are tasks that run during a workflow but are not part of the main workflow. Plugins can be treated as just another task, however, plugins do not have completion or failure detection.
+Plugins are tasks that run during a workflow but are not part of the main workflow. Plugins can be treated as just another task, however, plugins do not have completion or failure detection. Instead, plugins run as [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) and are managed by the Kubernetes Job controller.
 
 <img src="/images/plugins.png" alt="Terraform Operator Workflow Diagram"></img>
 
