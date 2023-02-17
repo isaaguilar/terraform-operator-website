@@ -21,10 +21,10 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1005
+weight: 1006
 showJumpToSection: false
-aliases:
-- /docs/references/latest
+hidden: true
+subMenuHidden: true
 ---
 
 
