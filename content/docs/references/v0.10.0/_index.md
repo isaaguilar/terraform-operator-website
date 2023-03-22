@@ -1,8 +1,8 @@
 ---
-title: Release v0.9.0
+title: Release v0.10.0
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Release v0.9.0
+  title: Release v0.10.0
   description: This is a configuration overview of Terraform Operator
   extra:
     - name: 'og:type'
@@ -21,14 +21,15 @@ seo:
     - name: 'twitter:description'
       value: This is the references page
 layout: docs
-weight: 1005
+weight: 1004
 showJumpToSection: false
-
+aliases:
+- /docs/references/latest
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.9.0-alpha2+ and covers the resource apiVersion: <code>v1alpha2</code>
+This doc is good for Terraform Operator release v0.10.0 and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -350,6 +351,7 @@ If no policy is specified, the restart policy is set to "Never". </td></tr>
 <tr><td><code class="field">message</code><br/><i>string</i></td><td> Message stores the last message displayed in the logs. It is stored and checked by the controller to reduce the noise in the logs by only displying the message once. </td></tr>
 <tr><td><code class="field">podName</code><br/><i>string</i></td><td> PodName is the pod assigned to execute the stage. </td></tr>
 <tr><td><code class="field">podType</code><br/><i>string</i></td><td> TaskType is which task is currently running. </td></tr>
+<tr><td><code class="field">podUID</code><br/><i>string</i></td><td> PodUID is the pod uid of the pod assigned to execute the stage. </td></tr>
 <tr><td><code class="field">reason</code><br/><i>string</i></td><td> Reason is a message of what is happening with the pod. The controller uses this field when certain reasons occur to make scheduling decisions. </td></tr>
 <tr><td><code class="field">startTime</code><br/><i><a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Time">k8s.io/apimachinery/pkg/apis/meta/v1.Time</a></i></td><td> StartTime is when the task got created by the controller, not when a pod got started. </td></tr>
 <tr><td><code class="field">state</code><br/><i>string</i></td><td> State is the phase of the task pod. </td></tr>

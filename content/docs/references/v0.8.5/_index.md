@@ -23,8 +23,8 @@ seo:
 layout: docs
 weight: 1013
 showJumpToSection: false
-# aliases:
-# - /docs/references/latest
+hidden: true
+subMenuHidden: false
 ---
 
 
