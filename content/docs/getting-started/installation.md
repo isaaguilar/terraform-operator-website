@@ -34,7 +34,7 @@ layout: docs
 </div>-->
 
 <div class="important">
-These docs will reference the release v0.9.0-pre3+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
+These docs will reference v0.9.0-pre3+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
 <br/><br/>
 If this is a first installation on a cluster, the latest is safe to install.
 <br/><br/>
@@ -63,7 +63,7 @@ Here is a nifty script to install the right CRD for a specific version of the he
 ```bash
 #!/usr/bin/env bash
 tmpdir=$(mktemp -d)
-helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.3.9 --untar
+helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.3.10 --untar
 kubectl apply -f $tmpdir/terraform-operator/crds
 ```
 
@@ -71,7 +71,7 @@ kubectl apply -f $tmpdir/terraform-operator/crds
 
 ```bash
 #!/usr/bin/env bash
-helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.3.9 --namespace tf-system --create-namespace
+helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.3.10 --namespace tf-system --create-namespace
 ```
 
 See previous versions that can be installed by running `helm search repo -l`.
@@ -90,7 +90,7 @@ Install the bundle which includes the correct CRD version for the release:
 #!/usr/bin/env bash
 git clone https://github.com/isaaguilar/terraform-operator.git
 cd terraform-operator
-kubectl apply -f deploy/bundles/v0.10.0/v0.10.0.yaml
+kubectl apply -f deploy/bundles/v0.11.0/v0.11.0.yaml
 ```
 
 Once the operator is installed, terraform resources are ready to be deployed.

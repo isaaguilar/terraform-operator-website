@@ -1,33 +1,48 @@
 ---
-title: Release v0.10.0
+# When updating this doc for the next release, do a full replace of v0.11.0 to the next version.
+title: Release v0.11.0
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Release v0.10.0
+  title: Release v0.11.0
   description: This is a configuration overview of Terraform Operator
   extra:
+
+    # og
     - name: 'og:type'
       value: website
-      keyName: property
     - name: 'og:title'
-      value: References
-      keyName: property
+      # ******************* Edit this value *******************
+      value: 'Terraform Operator API for version v0.11.0'
     - name: 'og:description'
-      value: This is the references page
-      keyName: property
+      # ******************* Edit this value *******************
+      value: |-
+        This doc is good for Terraform Operator release v0.11.0 and covers the resource apiVersion: <code>v1alpha2</code>
+    - name: 'og:image'
+      value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
+
+    # twitter
     - name: 'twitter:card'
       value: summary
     - name: 'twitter:title'
-      value: References
+      # ******************* Edit this value *******************
+      value: 'Terraform Operator API for version v0.11.0'
     - name: 'twitter:description'
-      value: This is the references page
+      # ******************* Edit this value *******************
+      value: |-
+        This doc is good for Terraform Operator release v0.11.0 and covers the resource apiVersion: <code>v1alpha2</code>
+    - name: 'twitter:image'
+      value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
+
 layout: docs
-weight: 1004
 showJumpToSection: false
+weight: 1003 # Decrease this value by one when upgrading to new doc
+aliases:
+- /docs/references/latest
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.10.0 and covers the resource apiVersion: <code>v1alpha2</code>
+This doc is good for Terraform Operator release v0.11.0 and covers the resource apiVersion: <code>v1alpha2</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -145,6 +160,7 @@ Deleting the plan that is holding will spawn a new plan and a new approval will 
 <tr><td><code class="field">serviceAccount</code><br/><i>string</i></td><td> ServiceAccount use a specific kubernetes ServiceAccount for running the create + destroy pods. If not specified we create a new ServiceAccount per Terraform </td></tr>
 <tr><td><code class="field">setup</code><br/><i><a href="#Setup_v1alpha2_tf.isaaguilar.com">Setup</a></i></td><td> Setup is configuration generally used once in the setup task </td></tr>
 <tr><td><code class="field">sshTunnel</code><br/><i><a href="#ProxyOpts_v1alpha2_tf.isaaguilar.com">ProxyOpts</a></i></td><td> SSHTunnel can be defined for pulling from scm sources that cannot be accessed by the network the operator/runner runs in. An example is enterprise-Github servers running on a private network. </td></tr>
+<tr><td><code class="field">storageClassName</code><br/><i>string</i></td><td> StorageClassName is the name of the volume that terraform-operator will use to store data. An empty value means that this volume does not belong to any StorageClassName and will use the clusters default StorageClassName </td></tr>
 <tr><td><code class="field">taskOptions</code><br/><i>array[<a href="#TaskOption_v1alpha2_tf.isaaguilar.com">TaskOption</a>]</i></td><td> TaskOptions are a list of configuration options to be injected into task pods. </td></tr>
 <tr><td><code class="field">terraformModule</code><br/><i><a href="#Module_v1alpha2_tf.isaaguilar.com">Module</a></i></td><td> TerraformModule is used to configure the source of the terraform module. </td></tr>
 <tr><td><code class="field">terraformVersion</code><br/><i>string</i></td><td> TerraformVersion is the version of terraform which is used to run the module. The terraform version is used as the tag of the terraform image  regardless if images.terraform.image is defined with a tag. In that case, the tag is stripped and replace with this value. </td></tr>
