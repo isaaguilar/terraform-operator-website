@@ -29,7 +29,7 @@ layout: docs
 showJumpToSection: false
 ---
 
-<div class="note"><code>backend</code> is a required field of the <a href="/docs/references/v0.9.0/#TerraformSpec_v1alpha2_tf.isaaguilar.com">Terraform spec</a>.</div>
+<div class="note"><code>backend</code> is a required field of the <a href="/docs/references/latest/">Terraform spec</a>.</div>
 
 Backend is a required Terraform Operator field. It is defined as a multiline string in yaml and must be a
 fully defined Terraform [Backend Block](https://www.terraform.io/language/settings/backends/configuration#using-a-backend-block).

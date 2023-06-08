@@ -29,7 +29,7 @@ layout: docs
 showJumpToSection: false
 ---
 
-<div class="comment"><code>taskOptions</code> is an optional field in the <a href="/docs/references/v0.9.0/#TaskOption_v1alpha2_tf.isaaguilar.com">Terraform spec</a>.</div>
+<div class="comment"><code>taskOptions</code> is an optional field in the <a href="/docs/references/latest/">Terraform spec</a>.</div>
 
 
 `taskOptions` is an array of options that enable customizing any or all task pods. Multiple option sets can be created to customize each individual task. Some options are simply added to the pod spec intuitively. Others are used by the pod indirectly, like the pod's ServiceAccount Role Policy. Finally there are options that change the task's execution script.

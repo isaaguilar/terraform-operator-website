@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: "terraform-operator"
-        image: "isaaguilar/terraform-operator:v0.9.0-pre2"
+        image: "ghcr.io/galleybytes/terraform-operator:v0.9.0-pre2"
         imagePullPolicy: IfNotPresent
         # ... data omitted
         env:

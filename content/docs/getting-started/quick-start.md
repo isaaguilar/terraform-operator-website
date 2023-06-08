@@ -32,7 +32,7 @@ Create a Terraform resource by running this _hello_world_ example:
 
 
 ```bash
-printf 'apiVersion: tf.isaaguilar.com/v1alpha2
+printf 'apiVersion: tf.galleybytes.com/v1beta1
 kind: Terraform
 metadata:
   name: hello-tfo
