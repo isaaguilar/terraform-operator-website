@@ -26,7 +26,7 @@
             },
             {
                 "label": "GitHub",
-                "url": "https://github.com/isaaguilar/terraform-operator",
+                "url": "https://github.com/galleybytes/terraform-operator",
                 "style": "primary",
                 "has_subnav": false
             }

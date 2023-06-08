@@ -1,4 +1,4 @@
-S3_BUCKET ?= "tf.isaaguilar.com"
+S3_BUCKET ?= "tf.galleybytes.com"
 
 
 clean:

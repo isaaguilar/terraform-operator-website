@@ -33,17 +33,6 @@ layout: docs
 
 </div>-->
 
-<div class="important">
-These docs will reference v0.9.0-pre3+ which uses the latest CRD (ie the <code>v1alpha2</code> apiVersion).
-<br/><br/>
-If this is a first installation on a cluster, the latest is safe to install.
-<br/><br/>
-For those who are upgrading the apiVersion from v1alpha1 to v1alpha2, the automatic conversion is still a
-work-in-progress. Use the helm release version <code>v0.2.11</code> to prevent upgrading the apiVersion.
-<br/><br/>
-As always, please submit issues and bug on the <a href="https://github.com/isaaguilar/terraform-operator/issues">Terraform-Operator GitHub Issues Page</a>.
-</div>
-
 ## Install using Helm
 
 **Add or update the helm repos**
@@ -77,7 +66,7 @@ helm upgrade --install terraform-operator galleybytes/terraform-operator --versi
 See previous versions that can be installed by running `helm search repo -l`.
 
 <div class="note">
-See <a href="https://github.com/isaaguilar/helm-charts/tree/master/charts/terraform-operator">terraform-operator's helm chart</a> for options.
+See <a href="https://github.com/galleybytes/helm-charts/tree/master/charts/terraform-operator">terraform-operator's helm chart</a> for options.
 </div>
 
 
@@ -88,11 +77,11 @@ Install the bundle which includes the correct CRD version for the release:
 
 ```bash
 #!/usr/bin/env bash
-git clone https://github.com/isaaguilar/terraform-operator.git
+git clone https://github.com/galleybytes/terraform-operator.git
 cd terraform-operator
 kubectl apply -f deploy/bundles/v0.11.0/v0.11.0.yaml
 ```
 
 Once the operator is installed, terraform resources are ready to be deployed.
 
-Check out the [examples](https://github.com/isaaguilar/terraform-operator/tree/master/examples) directory to see the different options tf-operator handles. For a full list of options, see [API References](/docs/references/latest)
+Check out the [examples](https://github.com/galleybytes/terraform-operator/tree/master/examples) directory to see the different options tf-operator handles. For a full list of options, see [API References](/docs/references/latest)
