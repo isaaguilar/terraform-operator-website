@@ -34,8 +34,8 @@ seo:
       value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 
 layout: docs
-weight: 1002 # Decrease this value by one when upgrading to new doc
 showJumpToSection: false
+weight: 1002 # Decrease this value by one when upgrading to new doc
 hidden: true
 subMenuHidden: false
 
