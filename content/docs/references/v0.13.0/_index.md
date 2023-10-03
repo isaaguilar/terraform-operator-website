@@ -36,8 +36,8 @@ seo:
 layout: docs
 showJumpToSection: false
 weight: 1000 # Decrease this value by one when upgrading to new doc
-aliases:
-- /docs/references/latest
+hidden: false # Hides this from being a big link
+subMenuHidden: false # Hides this from being a link anywhere
 ---
 
 
