@@ -36,6 +36,8 @@ seo:
 layout: docs
 showJumpToSection: false
 weight: 1001 # Decrease this value by one when upgrading to new doc
+hidden: true
+subMenuHidden: false
 ---
 
 
