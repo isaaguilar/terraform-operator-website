@@ -1,9 +1,9 @@
 ---
-# When updating this doc for the next release, do a full replace of v0.13.0 to the next version.
-title: Release v0.13.0
+# When updating this doc for the next release, do a full replace of v0.15.0 to the next version.
+title: Release v0.15.0
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Release v0.13.0
+  title: Release v0.15.0
   description: This is a configuration overview of Terraform Operator
   extra:
 
@@ -12,11 +12,11 @@ seo:
       value: website
     - name: 'og:title'
       # ******************* Edit this value *******************
-      value: 'Terraform Operator API for version v0.13.0'
+      value: 'Terraform Operator API for version v0.15.0'
     - name: 'og:description'
       # ******************* Edit this value *******************
       value: |-
-        This doc is good for Terraform Operator release v0.13.0 and covers the resource apiVersion: <code>v1beta1</code>
+        This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
     - name: 'og:image'
       value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 
@@ -25,24 +25,24 @@ seo:
       value: summary
     - name: 'twitter:title'
       # ******************* Edit this value *******************
-      value: 'Terraform Operator API for version v0.13.0'
+      value: 'Terraform Operator API for version v0.15.0'
     - name: 'twitter:description'
       # ******************* Edit this value *******************
       value: |-
-        This doc is good for Terraform Operator release v0.13.0 and covers the resource apiVersion: <code>v1beta1</code>
+        This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
     - name: 'twitter:image'
       value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 
 layout: docs
 showJumpToSection: false
-weight: 1000 # Decrease this value by one when upgrading to new doc
-hidden: true # Hides this from being a big link
-subMenuHidden: false # Hides this from being a link anywhere
+weight: 998 # Decrease this value by one when upgrading to new doc
+aliases:
+- /docs/references/latest
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.13.0 and covers the resource apiVersion: <code>v1beta1</code>
+This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -184,6 +184,17 @@ Deleting the plan that is holding will spawn a new plan and a new approval will 
 <tr><td><code class="field">phase</code><br/><i>string</i></td><td> Phase is the current phase of the workflow </td></tr>
 <tr><td><code class="field">pluginsStarted</code><br/><i>array[string]</i></td><td> PluginsStarted is a list of plugins that have been executed by the controller. Will get refreshed each generation. </td></tr>
 <tr><td><code class="field">podNamePrefix</code><br/><i>string</i></td><td> PodNamePrefix is used to identify this installation of the resource. For very long resource names, like those greater than 220 characters, the prefix ensures resource uniqueness for runners and other resources used by the runner. Another case for the pod name prefix is when rapidly deleteing a resource and recreating it, the chance of recycling existing resources is reduced to virtually nil. </td></tr>
+<tr><td><code class="field">retryEventReson</code><br/><i>string</i></td><td> RetryEventReason copies the value of the resource label for 'kubernetes.io/change-cause'. When '.setup' is is the suffix of the value, the pipeline will retry from the setup task.
+
+Example of starting from setup:
+
+```yaml metadata:
+  labels:
+    kubernetes.io/change-cause: triggered-by-isa_aguilar-20231025T011600.setup
+```
+
+A default retry will start from the init task otherwise. </td></tr>
+<tr><td><code class="field">retryTimestamp</code><br/><i><a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Time">k8s.io/apimachinery/pkg/apis/meta/v1.Time</a></i></td><td>  </td></tr>
 <tr><td><code class="field">stage</code><br/><i><a href="#Stage_v1beta1_tf.galleybytes.com">Stage</a></i></td><td> Stage stores information about the current stage </td></tr>
 </table>
 
@@ -233,7 +244,8 @@ Deleting the plan that is holding will spawn a new plan and a new approval will 
 
 <table class="apitable">
 <tr><th>Field</th><th>Description</th></tr>
-<tr><td><code class="field">configMapSeclector</code><br/><i><a href="#ConfigMapSelector_v1beta1_tf.galleybytes.com">ConfigMapSelector</a></i></td><td> ConfigMapSelector is an option that points to an existing configmap on the executing cluster. The configmap is expected to contains has the terraform module (ie keys ending with .tf). The configmap would need to live in the same namespace as the tfo resource.
+<tr><td><code class="field">configMapSeclector</code><br/><i><a href="#ConfigMapSelector_v1beta1_tf.galleybytes.com">ConfigMapSelector</a></i></td><td> Typoed form of configMapSelector </td></tr>
+<tr><td><code class="field">configMapSelector</code><br/><i><a href="#ConfigMapSelector_v1beta1_tf.galleybytes.com">ConfigMapSelector</a></i></td><td> ConfigMapSelector is an option that points to an existing configmap on the executing cluster. The configmap is expected to contains has the terraform module (ie keys ending with .tf). The configmap would need to live in the same namespace as the tfo resource.
 
 The configmap is mounted as a volume and put into the TFO_MAIN_MODULE path by the setup task.
 
@@ -257,12 +269,17 @@ If a key is defined, the value is used as the module else the entirety of the da
 <tr><th>Field</th><th>Description</th></tr>
 <tr><td><code class="field">image</code><br/><i>string</i></td><td> The container image from the registry; tags must be omitted </td></tr>
 <tr><td><code class="field">imagePullPolicy</code><br/><i>string</i></td><td> Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images </td></tr>
+<tr><td><code class="field">must</code><br/><i>boolean</i></td><td> Must is short for "must succeed to generate sidecar spec". Generation of spec does not guarantee correctness. Must will only be applied to sidecars.
+
+If must is false and the sidecar spec fails to generate, the sidecar addition will be omitted. </td></tr>
 <tr><td><code class="field">task</code><br/><i>string</i></td><td> Task is the second part of a two-part selector of when the plugin gets run in the workflow. This should correspond to one of the tfo task names. </td></tr>
 <tr><td><code class="field">when</code><br/><i>string</i></td><td> When is a keyword of a two-part selector of when the plugin gets run in the workflow. The value must be one of
 
 - <code>At</code> to run at the same time as the defined task
 
-- <code>After</code> to run after the defined task has completed. </td></tr>
+- <code>After</code> to run after the defined task has completed.
+
+- <code>Sidecar</code> to run as a sidecar for the given task. Since sidecars run in the same pod as a "main workflow" task, failed sidecars will cause a failure in the workflow. </td></tr>
 </table>
 
 
@@ -345,6 +362,8 @@ If a key is defined, the value is used as the module else the entirety of the da
 
 If no policy is specified, the restart policy is set to "Never". </td></tr>
 <tr><td><code class="field">script</code><br/><i><a href="#StageScript_v1beta1_tf.galleybytes.com">StageScript</a></i></td><td> Script is used to configure the source of the task's executable script. </td></tr>
+<tr><td><code class="field">volumeMounts</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/core/v1#VolumeMount">k8s.io/api/core/v1.VolumeMount</a>]</i></td><td> Extra volumeMounts for task pod </td></tr>
+<tr><td><code class="field">volumes</code><br/><i>array[<a href="https://pkg.go.dev/k8s.io/api/core/v1#Volume">k8s.io/api/core/v1.Volume</a>]</i></td><td> Extra volumes for task pod </td></tr>
 </table>
 
 
