@@ -1,9 +1,9 @@
 ---
-# When updating this doc for the next release, do a full replace of v0.15.0 to the next version.
-title: Release v0.15.0
+# When updating this doc for the next release, do a full replace of v0.16.0 to the next version.
+title: Release v0.16.0
 excerpt: In this section you'll find docs related to Terraform Operator's API and other features.
 seo:
-  title: Release v0.15.0
+  title: Release v0.16.0
   description: This is a configuration overview of Terraform Operator
   extra:
 
@@ -12,11 +12,11 @@ seo:
       value: website
     - name: 'og:title'
       # ******************* Edit this value *******************
-      value: 'Terraform Operator API for version v0.15.0'
+      value: 'Terraform Operator API for version v0.16.0'
     - name: 'og:description'
       # ******************* Edit this value *******************
       value: |-
-        This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
+        This doc is good for Terraform Operator release v0.16.0 and covers the resource apiVersion: <code>v1beta1</code>
     - name: 'og:image'
       value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 
@@ -25,28 +25,24 @@ seo:
       value: summary
     - name: 'twitter:title'
       # ******************* Edit this value *******************
-      value: 'Terraform Operator API for version v0.15.0'
+      value: 'Terraform Operator API for version v0.16.0'
     - name: 'twitter:description'
       # ******************* Edit this value *******************
       value: |-
-        This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
+        This doc is good for Terraform Operator release v0.16.0 and covers the resource apiVersion: <code>v1beta1</code>
     - name: 'twitter:image'
       value: 'https://s3.amazonaws.com/classic.isaaguilar.com/tfo-logo-cir.png'
 
 layout: docs
 showJumpToSection: false
 weight: 998 # Decrease this value by one when upgrading to new doc
-hidden: true # Hides this from being a big link
-subMenuHidden: false # Hides this from being a link anywhere
-###
-# NOTE: v0.15 was very short lived and I didn't want to keep v0.16 next to v0.15 in the releases page.
-#       Instead, I'm pushing v0.15 into the history list (ie hidden=true)
-###
+aliases:
+- /docs/references/latest
 ---
 
 
 <div class="note">
-This doc is good for Terraform Operator release v0.15.0 and covers the resource apiVersion: <code>v1beta1</code>
+This doc is good for Terraform Operator release v0.16.0 and covers the resource apiVersion: <code>v1beta1</code>
 </div>
 
 The following is a list of configurable parameters of the `Terraform` CRD. A brief description about each parameter will be defined here. Fore more in-depth details about the features, see [Core Concepts](../../architecture).
@@ -188,7 +184,7 @@ Deleting the plan that is holding will spawn a new plan and a new approval will 
 <tr><td><code class="field">phase</code><br/><i>string</i></td><td> Phase is the current phase of the workflow </td></tr>
 <tr><td><code class="field">pluginsStarted</code><br/><i>array[string]</i></td><td> PluginsStarted is a list of plugins that have been executed by the controller. Will get refreshed each generation. </td></tr>
 <tr><td><code class="field">podNamePrefix</code><br/><i>string</i></td><td> PodNamePrefix is used to identify this installation of the resource. For very long resource names, like those greater than 220 characters, the prefix ensures resource uniqueness for runners and other resources used by the runner. Another case for the pod name prefix is when rapidly deleteing a resource and recreating it, the chance of recycling existing resources is reduced to virtually nil. </td></tr>
-<tr><td><code class="field">retryEventReson</code><br/><i>string</i></td><td> RetryEventReason copies the value of the resource label for 'kubernetes.io/change-cause'. When '.setup' is is the suffix of the value, the pipeline will retry from the setup task.
+<tr><td><code class="field">retryEventReason</code><br/><i>string</i></td><td> RetryEventReason copies the value of the resource label for 'kubernetes.io/change-cause'. When '.setup' is is the suffix of the value, the pipeline will retry from the setup task.
 
 Example of starting from setup:
 
