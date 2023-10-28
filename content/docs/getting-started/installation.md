@@ -52,7 +52,7 @@ Here is a nifty script to install the right CRD for a specific version of the he
 ```bash
 #!/usr/bin/env bash
 tmpdir=$(mktemp -d)
-helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.6.0 --untar
+helm fetch galleybytes/terraform-operator -d $tmpdir --version 0.6.1 --untar
 kubectl apply -f $tmpdir/terraform-operator/crds
 ```
 
@@ -60,7 +60,7 @@ kubectl apply -f $tmpdir/terraform-operator/crds
 
 ```bash
 #!/usr/bin/env bash
-helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.6.0 --namespace tf-system --create-namespace
+helm upgrade --install terraform-operator galleybytes/terraform-operator --version 0.6.1 --namespace tf-system --create-namespace
 ```
 
 See previous versions that can be installed by running `helm search repo -l`.
@@ -79,7 +79,7 @@ Install the bundle which includes the correct CRD version for the release:
 #!/usr/bin/env bash
 git clone https://github.com/galleybytes/terraform-operator.git
 cd terraform-operator
-kubectl apply -f deploy/bundles/v0.15.0/v0.15.0.yaml
+kubectl apply -f deploy/bundles/v0.15.1/v0.15.1.yaml
 ```
 
 Once the operator is installed, terraform resources are ready to be deployed.
